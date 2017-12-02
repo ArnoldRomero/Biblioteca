@@ -28,7 +28,9 @@ CREATE TABLE upload(
     fecha_up date not null,
     hora time not null,
 
-    id_usu_pk int (10) ZEROFILL not null
+    id_usu_pk int (10) ZEROFILL not null,
+
+    foreign key (id_usu_pk) references usuario (nro_reg)
 );
 
 create table documento(
@@ -36,15 +38,15 @@ create table documento(
     titulo varchar (200) not null,
     descripcion varchar (400),
     size  int not null,
-    formato varchar(5) not null
+    formato varchar(5) not null,
     paginas int,
 
     id_mat_pk varchar (6),
-    id_tip_pk int (2) not null,
+    id_tip_pk int (2) ZEROFILL not null,
 
-
-
-   
+    foreign key (id_mat_pk) references materia (sigla),
+    foreign key (id_tip_pk) references tipo (id_tip)
+    
 );
 
 CREATE TABLE download(
@@ -53,11 +55,20 @@ fecha_down date not null,
 hora time not null,
 
 id_usd_pk int (10) ZEROFILL not null,
-id_doc_pk int not null
+id_dod_pk int not null,
+
+foreign key (id_usd_pk) references usuario (nro_reg),
+foreign key (id_dod_pk) references documento (id_documento)
 
 );
 
 
 CREATE TABLE detalle_up(
-    id_up_pk int not null 
+    id_up_pk int not null,
+    id_doc_pk int not null,
+    detalle varchar (40),
+
+    foreign key (id_up_pk) references upload (id_up),
+    foreign key (id_doc_pk) references documento (id_documento),
+    primary key (id_up_pk,id_doc_pk)
 );
