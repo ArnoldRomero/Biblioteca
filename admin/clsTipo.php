@@ -26,11 +26,11 @@ class Tipo extends Conexion{
 		return $this->id_tipo;
 	}
 
-	public function setNombreT($valor)
+	public function setNombre($valor)
 	{
 		$this->nombre=$valor;
 	}
-	public function getNombreT()
+	public function getNombre()
 	{
 		return $this->nombre;
 	}
@@ -38,7 +38,7 @@ class Tipo extends Conexion{
 
 
 
-	public function GuardarT()
+	public function Guardar()
 	{
      $sql="INSERT into tipo(nombre_tipo) values('$this->nombre')";
 		
@@ -48,7 +48,7 @@ class Tipo extends Conexion{
 			return false;	
 	}
 	
-	public function ModificarT()	{
+	public function Modificar()	{
 	$sql="UPDATE tipo set nombre_tipo='$this->nombre' where id_tip=$this->id_tipo";		
 		if(parent::ejecutar($sql))
 			return true;
@@ -56,7 +56,7 @@ class Tipo extends Conexion{
 			return false;	
 	}
 	
-	public function EliminarT()
+	public function Eliminar()
 	{
 		$sql="DELETE from tipo where id_tip=$this->id_tipo";
 		
@@ -66,7 +66,7 @@ class Tipo extends Conexion{
 			return false;	
 	}
 												
-	public function BuscarT()
+	public function Buscar()
 	{
 		$sql="SELECT *from tipo";
 		return parent::ejecutar($sql);
