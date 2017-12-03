@@ -53,10 +53,10 @@
                                                     <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Materia" name="txt_nombre1">
                                                 </div><br/>
                                                 <div class="form-group">
-                                                    <input type=submit class="btn btn-outline-success btn-round" value="Guardar" name="btnGuardar1">
-                                                    <input type=submit class="btn btn-outline-warning btn-round" value="Editar" name="btnEditar1">
-                                                    <input type=submit class="btn btn-outline-info btn-round" value="Nuevo" name="btnNuevo1">
-                                                    <input type=submit class="btn btn-outline-danger btn-round" value="Eliminar" name="btnEliminar1">
+                                                    <input type=submit class="btn btn-outline-success btn-round" value="Guardar" name="botones">
+                                                    <input type=submit class="btn btn-outline-warning btn-round" value="Modificar" name="botones">
+                                                    <input type=submit class="btn btn-outline-info btn-round" value="Nuevo" name="botones">
+                                                    <input type=submit class="btn btn-outline-danger btn-round" value="Eliminar" name="botones">
                                                 </div><br/>
                                             </form>
                                         </div>
@@ -116,18 +116,22 @@
                                                 <h3>Nuevo Tipo de Documento</h3>
                                                 <br/>
                                             </div>
-                                            <form>
+                                            <form action="registro.php" method="POST" >
+
+
                                                 <div class="form-group has-success">
                                                     <input type="text" readonly="false" class="form-control form-control-success" id="inputSuccess1" placeholder="Id Autogenerado" name="txt_id2">
                                                 </div><br/>
                                                 <div class="form-group has-success">
                                                     <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Tipo de Documento" name="txt_nombre2">
                                                 </div><br/>
+
+
                                                 <div class="form-group">
-                                                    <input type=submit class="btn btn-outline-success btn-round" value="Guardar" name="btnGuardar2">
-                                                    <input type=submit class="btn btn-outline-warning btn-round" value="Editar" name="btnEditar2">
-                                                    <input type=submit class="btn btn-outline-info btn-round" value="Nuevo" name="btnNuevo2">
-                                                    <input type=submit class="btn btn-outline-danger btn-round" value="Eliminar" name="btnEliminar2">
+                                                    <input type=submit class="btn btn-outline-success btn-round" value="Guardar" name="btn">
+                                                    <input type=submit class="btn btn-outline-warning btn-round" value="Modificar" name="btn">
+                                                    <input type=submit class="btn btn-outline-info btn-round" value="Nuevo" name="btn">
+                                                    <input type=submit class="btn btn-outline-danger btn-round" value="Eliminar" name="btn">
                                                 </div><br/>
                                             </form>
                                         </div>
@@ -193,6 +197,51 @@
         /********** FUNCIONES DE MATERIA Y TIPO ***********/
         include_once('funciones_Materia.php');
         include_once('funciones_Tipo.php');
+
+
+        switch($_POST['botones'])
+        {
+            case "Nuevo":{
+            }break;
+
+            case "Guardar":{
+            Guardar_Materia();
+            }break;
+
+            case "Modificar":{
+            Modificar_Materia();
+            }break;
+
+            case "Eliminar":{
+            Eliminar_Materia();
+            }break;
+
+            case "Buscar":{
+            Buscar_Materia();
+            }break;
+        }
+        switch($_POST['btn'])
+        {
+            case "Nuevo":{
+            }break;
+
+            case "Guardar":{
+            Guardar_Tipo();
+            }break;
+
+            case "Modificar":{
+            Modificar_Tipo();
+            }break;
+
+            case "Eliminar":{
+            Eliminar_Tipo();
+            }break;
+
+            case "Buscar":{
+            Buscar_Tipo();
+            }break;
+
+        }
     ?>
 
 </body>

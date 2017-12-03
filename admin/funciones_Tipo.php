@@ -1,21 +1,23 @@
 <?php
-    function Guardar_Tipo(){
-        if($_POST['txt_id2'] && $_POST['txt_nombre2'] )
+    include_once('clsTipo.php');
+
+    function Guardar_Tipo()
     {
-        
-        $obj= new Tipo();
+        if($_POST['txt_nombre2'] )
+        {
+            
+            $obj= new Tipo();
 
-        $obj->setIdTipo($_POST['txt_id2']);
-        $obj->setNombre($_POST['txt_nombre2']);
-      
-        if ($obj->Guardar())
-            echo "Tipo Guardada..!!!";
+            $obj->setIdTipo($_POST['txt_id2']);
+            $obj->setNombre($_POST['txt_nombre2']);
+          
+            if ($obj->Guardar())
+                echo "Tipo Guardada..!!!";
+            else
+                echo "Error al guardar la Tipo";
+        }
         else
-            echo "Error al guardar la Tipo";
-    }
-    else
-        echo "Es obligatorio el la sigla y nombre!!!";
-
+            echo "Es obligatorio el la sigla y nombre!!!";
     }
 
     function Modificar_Tipo()

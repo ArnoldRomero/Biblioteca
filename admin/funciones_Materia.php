@@ -1,4 +1,7 @@
 <?php
+    include_once('clsMateria.php');
+
+    
     function Guardar_Materia(){
         if($_POST['txt_id1'] && $_POST['txt_nombre1'] )
     {

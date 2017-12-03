@@ -40,7 +40,7 @@ class Tipo extends Conexion{
 
 	public function Guardar()
 	{
-     $sql="INSERT into tipo(nombre_tipo) values('$this->nombre')";
+     $sql="INSERT into tipo(nombre_tipo) values ('$this->nombre')";
 		
 		if(parent::ejecutar($sql))
 			return true;
@@ -71,6 +71,6 @@ class Tipo extends Conexion{
 		$sql="SELECT *from tipo";
 		return parent::ejecutar($sql);
 	}										
-8
+
 }    
 ?>
