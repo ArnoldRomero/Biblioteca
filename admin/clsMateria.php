@@ -68,13 +68,13 @@ class Materia extends Conexion{
 		
 	public function buscarPorNombre($criterio)
 	{
-		$sql="select *from categoria where nombre like '$criterio%'";
+		$sql="SELECT *from materia where nombre like '$criterio%'";
 		return parent::ejecutar($sql);
 	}										
 
 	public function Buscar()
 	{
-		$sql="select *from categoria";
+		$sql="SELECT *from materia";
 		return parent::ejecutar($sql);
 	}										
 

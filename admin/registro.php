@@ -2,57 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
-    <title>Inicio</title>
-
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta name="viewport" content="width=device-width" />
-
-    <!-- Bootstrap core CSS     -->
-	<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="assets/css/paper-kit.css?v=2.1.0" rel="stylesheet"/>
-
-	<!--  CSS for Demo Purpose, don't include it in your project     -->
-	<link href="assets/css/demo.css" rel="stylesheet" />
-
-    <!--     Fonts and icons     -->
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+    <?php
+        /*----------Fragmento de HEAD -----------*/
+        $titulo="Formulario";
+        include_once('head.php');
+    ?>
 
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md bg-primary">
-        <div class="container">
-            <button class="navbar-toggler navbar-toggler-right burger-menu" type="button" data-toggle="collapse" data-target="#navbar-primary" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                 <span class="navbar-toggler-bar"></span>
-                <span class="navbar-toggler-bar"></span>
-                 <span class="navbar-toggler-bar"></span>
-             </button>
-             <a class="navbar-brand" href="#">Administracion</a>
-            <div class="collapse navbar-collapse" id="navbar-primary">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                         <a class="nav-link" href="#"><i class="nc-icon nc-compass-05" aria-hidden="true"></i>&nbsp;Busquedas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nc-icon nc-single-02" aria-hidden="true"></i>&nbsp;Agregar</a>
-                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nc-icon nc-settings-gear-65" aria-hidden="true"></i>&nbsp;Settings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nc-icon nc-settings-gear-65" aria-hidden="true"></i>&nbsp;Salir</a>
-                    </li>
-                </ul>
-               </div>
-           </div>
-       </nav>
+    <?php
+        /*----------Fragmento de NAVEGACION -----------*/
+        include_once('navigation.php');
+    ?>
     <div class="wrapper">
         
         <div class="main" style="border: 1px solid red">
@@ -60,9 +22,6 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="tim-title">
-                                <h3>Panel de Registro de:</h3>
-                            </div>
 
                             <div class="nav-tabs-navigation">
                                 <div class="nav-tabs-wrapper">
@@ -86,18 +45,18 @@
                                                 <h3>Registro de Nueva Materia</h3>
                                                 <br/>
                                             </div>
-                                            <form>
+                                            <form action="registro.php" method="POST">
                                                 <div class="form-group has-success">
-                                                    <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Sigla de Materia">
+                                                    <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Sigla de Materia" name="txt_id1">
                                                 </div><br/>
                                                 <div class="form-group has-success">
-                                                    <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Materia">
+                                                    <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Materia" name="txt_nombre1">
                                                 </div><br/>
                                                 <div class="form-group">
-                                                    <input type=submit class="btn btn-outline-success btn-round" value="Guardar" name="btnGuardar">
-                                                    <input type=submit class="btn btn-outline-warning btn-round" value="Editar" name="btnEditar">
-                                                    <input type=submit class="btn btn-outline-info btn-round" value="Nuevo" name="btnNuevo">
-                                                    <input type=submit class="btn btn-outline-danger btn-round" value="Eliminar" name="btnEliminar">
+                                                    <input type=submit class="btn btn-outline-success btn-round" value="Guardar" name="btnGuardar1">
+                                                    <input type=submit class="btn btn-outline-warning btn-round" value="Editar" name="btnEditar1">
+                                                    <input type=submit class="btn btn-outline-info btn-round" value="Nuevo" name="btnNuevo1">
+                                                    <input type=submit class="btn btn-outline-danger btn-round" value="Eliminar" name="btnEliminar1">
                                                 </div><br/>
                                             </form>
                                         </div>
@@ -159,10 +118,10 @@
                                             </div>
                                             <form>
                                                 <div class="form-group has-success">
-                                                    <input type="text" readonly="false" class="form-control form-control-success" id="inputSuccess1" placeholder="Id Autogenerado">
+                                                    <input type="text" readonly="false" class="form-control form-control-success" id="inputSuccess1" placeholder="Id Autogenerado" name="txt_id2">
                                                 </div><br/>
                                                 <div class="form-group has-success">
-                                                    <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Tipo de Documento">
+                                                    <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Tipo de Documento" name="txt_nombre2">
                                                 </div><br/>
                                                 <div class="form-group">
                                                     <input type=submit class="btn btn-outline-success btn-round" value="Guardar" name="btnGuardar2">
@@ -218,39 +177,72 @@
                                             </nav>
                                         </div>
                                     </div> 
-                                    
-
-
                                 </div>
-
                             </div>
                         </div>
-
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>  
-            
-
 	</div>
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <nav class="footer-nav">
-                    <ul>
-                        <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Contactanos</a></li>
-                        <li><a href="#">Mapa del Sistema</a></li>
-                    </ul>
-                </nav>
-                <div class="credits ml-auto">
-                    <span class="copyright">
-                        © <script>document.write(new Date().getFullYear())</script>, Creado por LaberintoTech.
-                    </span>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php
+        include_once('footer.php');
+    ?>
+    <?php 
+    function Guardar_Materia(){
+        if($_POST['txt_id1'] && $_POST['txt_nombre1'] )
+    {
+        
+        $obj= new Materia();
+
+        $obj->setIdMateria($_POST['txt_id1']);
+        $obj->setNombre($_POST['txt_nombre1']);
+      
+        if ($obj->Guardar())
+            echo "Materia Guardada..!!!";
+        else
+            echo "Error al guardar la Materia";
+    }
+    else
+        echo "Es obligatorio el la sigla y nombre!!!";
+
+    }
+
+    function modificar_Materia()
+    {
+        if($_POST['txt_nombre1'])
+        {
+            $obj= new Materia();
+
+            $obj->setIdMateria($_POST['txt_id1']);
+            $obj->setNombre($_POST['txt_nombre1']);
+     
+            if ($obj->Modificar())
+                echo "Materia modificada..!!!";
+            else
+                echo "Error al modificar la Materia..!!!";      
+        }
+        else
+            echo "El nombre es obligatorio...!!!";
+    }
+
+    function eliminar_Materia()
+    {
+        if($_POST['txt_id1'])
+        {
+            $obj= new Persona();
+            $obj->setIdPersona($_POST['txt_id1']);     
+            if ($obj->eliminar())
+                echo "Materia eliminada";
+            else
+                echo "Error al eliminar la Materia";        
+        }
+        else    
+            echo "para eliminar debe tener el codigo de la materia..!!!";   
+    }
+
+    ?>
+
 </body>
 
 <!-- Core JS Files -->
