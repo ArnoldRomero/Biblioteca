@@ -43,9 +43,9 @@
     {
         if($_POST['txt_id1'])
         {
-            $obj= new Persona();
-            $obj->setIdPersona($_POST['txt_id1']);     
-            if ($obj->eliminar())
+            $obj= new Materia();
+            $obj->setIdMateria($_POST['txt_id1']);    
+            if ($obj->Eliminar())
                 echo "Materia eliminada";
             else
                 echo "Error al eliminar la Materia";        

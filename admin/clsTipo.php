@@ -49,7 +49,7 @@ class Tipo extends Conexion{
 	}
 	
 	public function Modificar()	{
-	$sql="UPDATE tipo set nombre_tipo='$this->nombre' where id_tip=$this->id_tipo";		
+	$sql="UPDATE tipo set nombre_tipo='$this->nombre' where id_tip='$this->id_tipo'";		
 		if(parent::ejecutar($sql))
 			return true;
 		else
@@ -58,7 +58,7 @@ class Tipo extends Conexion{
 	
 	public function Eliminar()
 	{
-		$sql="DELETE from tipo where id_tip=$this->id_tipo";
+		$sql="DELETE from tipo where id_tip='$this->id_tipo'";
 		
 		if(parent::ejecutar($sql))
 			return true;

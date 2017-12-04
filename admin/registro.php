@@ -49,10 +49,10 @@
                                                 </div>
                                                 <form action="registro.php" method="POST">
                                                     <div class="form-group has-success">
-                                                        <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Sigla de Materia" name="txt_id1">
+                                                        <input type="text" <?php if($_GET['x_idm']){echo "readonly='false'";}?> class="form-control form-control-success" id="inputSuccess1" placeholder="Sigla de Materia" name="txt_id1" value="<?php if($_GET['x_idm']){echo $_GET['x_idm'];}?>">
                                                     </div><br/>
                                                     <div class="form-group has-success">
-                                                        <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Materia" name="txt_nombre1">
+                                                        <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Materia" name="txt_nombre1" value="<?php if($_GET['x_nombrem']){echo $_GET['x_nombrem'];}?>">
                                                     </div><br/>
                                                     <div class="form-group">
                                                         <input type=submit class="btn btn-outline-success btn-round" value="Guardar" name="botones">
@@ -81,7 +81,7 @@
                                                             echo "<tr>";
                                                                 echo "<td>$fila->sigla</td>";
                                                                 echo "<td>$fila->nombre_m</td>";
-                                                                echo "<td><a href='#'><i class='nc-icon nc-send' aria-hidden='true'></i></a></td>";
+                                                                echo "<td><a href='registro.php?x_idm=$fila->sigla&x_nombrem=$fila->nombre_m'><i class='nc-icon nc-send' aria-hidden='true'></i></a></td>";
 
                                                             echo "<tr>";
                                                         }
@@ -109,7 +109,7 @@
                                                         <input type="text" readonly="false" class="form-control form-control-success" id="inputSuccess1" placeholder="Id Autogenerado" name="txt_id2" value="<?php if($_GET['x_idt']){echo $_GET['x_idt'];}?>">
                                                     </div><br/>
                                                     <div class="form-group has-success">
-                                                        <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Tipo de Documento" name="txt_nombre2">
+                                                        <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Tipo de Documento" name="txt_nombre2" value="<?php if($_GET['x_nombret']){echo $_GET['x_nombret'];}?>">
                                                     </div><br/>
 
 
@@ -140,7 +140,7 @@
                                                             echo "<tr>";
                                                                 echo "<td>$fila->id_tip</td>";
                                                                 echo "<td>$fila->nombre_tipo</td>";
-                                                                echo "<td><a href='registro.php?x_idt=$fila->id_tip&x_nombret=$fila->nombre_tipo'><a href='#tipo'></a><i class='nc-icon nc-send' aria-hidden='true'></i></a></td>";
+                                                                echo "<td><a href='registro.php?x_idt=$fila->id_tip&x_nombret=$fila->nombre_tipo'><i class='nc-icon nc-send' aria-hidden='true'></i></a></td>";
 
                                                             echo "<tr>";
                                                         }

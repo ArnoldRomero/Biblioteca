@@ -42,8 +42,8 @@
     {
         if($_POST['txt_id2'])
         {
-            $obj= new Persona();
-            $obj->setIdPersona($_POST['txt_id2']);     
+            $obj= new Tipo();
+            $obj->setIdTipo($_POST['txt_id2']);     
             if ($obj->Eliminar())
                 echo "Tipo eliminada";
             else

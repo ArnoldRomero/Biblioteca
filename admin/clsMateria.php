@@ -49,7 +49,7 @@ class Materia extends Conexion{
 	}
 	
 	public function Modificar()	{
-	$sql="UPDATE materia set nombre='$this->nombre' where sigla=$this->id_materia";		
+	$sql="UPDATE materia set nombre_m='$this->nombre' where sigla='$this->id_materia'";		
 		if(parent::ejecutar($sql))
 			return true;
 		else
@@ -58,7 +58,7 @@ class Materia extends Conexion{
 	
 	public function Eliminar()
 	{
-		$sql="DELETE from materia where sigla=$this->id_materia";
+		$sql="DELETE from materia where sigla='$this->id_materia'";
 		
 		if(parent::ejecutar($sql))
 			return true;

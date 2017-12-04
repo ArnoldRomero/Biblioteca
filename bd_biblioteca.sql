@@ -14,7 +14,7 @@ create table usuario(
 
 create table materia(
     sigla varchar (6) not null primary key,
-    nombre_m varchar (20) not null
+    nombre_m varchar (50) not null
 );
 
 create table tipo(
@@ -38,7 +38,7 @@ create table documento(
     titulo varchar (200) not null,
     descripcion varchar (400),
     size  int not null,
-    formato varchar(5) not null,
+    formato varchar(50) not null,
     paginas int,
 
     id_mat_pk varchar (6),
