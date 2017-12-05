@@ -116,9 +116,9 @@ class Usuario extends Conexion
 		}
 
 	/*---METODOS Y FUNCIONES DE SISTEMA---*/	
-		public function GuardarNuevo()
+		public function Guardar()
 		{
-			$sql="INSERT INTO usuario (nro_reg,pass,nombres,paterno,materno,sexo,correo) VALUES ('$this->nro_registro','$this->pass','$this->nombres','$this->paterno','$this->materno','$this->sexo','$this->correo'	)";
+			$sql="INSERT INTO usuario VALUES ('$this->nro_registro','$this->pass','$this->nombres','$this->paterno','$this->materno','$this->sexo','$this->fecha_nac','$this->telefono','$this->correo','$this->direccion')";
 			if(parent::ejecutar($sql))
 				return true;
 			else

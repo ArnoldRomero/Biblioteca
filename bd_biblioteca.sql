@@ -72,8 +72,3 @@ CREATE TABLE detalle_up(
     foreign key (id_doc_pk) references documento (id_documento),
     primary key (id_up_pk,id_doc_pk)
 );
-
-create table administrador(
-    user varchar(20) not null primary key,
-    pass varchar(20) not null
-);

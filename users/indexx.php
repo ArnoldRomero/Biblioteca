@@ -2,36 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
-    <title>INICIO</title>
-
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta name="viewport" content="width=device-width" />
-
-    <!-- Bootstrap core CSS     -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="assets/css/paper-kit.css?v=2.1.0" rel="stylesheet"/>
-
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="assets/css/demo.css" rel="stylesheet" />
-
-    <!--     Fonts and icons     -->
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+    <?php
+        include_once('html_head.php');
+    ?>
 
 </head>
 
 <body>
-    <?php
-    session_start();
-    ob_start();
-    include_once('clsSesion.php');
-    ?>
     <nav class="navbar navbar-expand-md fixed-top navbar-transparent" color-on-scroll="500">
         <div class="container">
 
@@ -48,16 +25,16 @@
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href=""  class="nav-link"><i class="fa fa-home"></i>Inicio</a>
+                        <a href="" target="_blank" class="nav-link"><i class="fa fa-home"></i>Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link"><i class="fa fa-upload"></i>Archivos</a>
+                        <a href="" target="_blank" class="nav-link"><i class="fa fa-upload"></i>Archivos</a>
                     </li>
                     <li class="nav-item">
-                        <a href=""  class="nav-link"><i class="fa fa-download"></i>Descargas</a>
+                        <a href="" target="_blank" class="nav-link"><i class="fa fa-download"></i>Descargas</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">  <i class="fa fa-user"></i>Mi Perfil</a>
+                        <a href="" target="_blank" class="nav-link">  <i class="fa fa-user"></i>Mi Perfil</a>
                     </li>
                     <li class="nav-item">
                             <button type="button" class="btn btn-outline-danger btn-round" data-toggle="modal" data-target="#myModal">
@@ -89,7 +66,7 @@
 
                         <!--    *******  FORMILARIO  *******     -->
                     <div class="row">
-                        <form class="col-sm-12" action="" method="POST">
+                        <form class="col-sm-12">
                             <div class="col-sm-12"> 
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Titulo de Documento">
@@ -111,12 +88,10 @@
                     </div>
     			</div>
     		</div>
-        <?php
-        ?>
 
     	</div>
         <!---------- CUERPO  ---------->
-        <div >
+        <div>
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -135,12 +110,12 @@
                             
                                 <div class="form-group"> 
                                     <div class="input-group">
-                                        <input type="text" name="txtUser" class="form-control" placeholder="Nro Registro" aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control" placeholder="Nro Registro" aria-describedby="basic-addon1">
                                         <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
                                     </div>
                                     <br><br>
                                     <div class="input-group">
-                                        <input type="text" name="txtPass" class="form-control" placeholder="Contraseña" aria-describedby="basic-addon2">
+                                        <input type="text" class="form-control" placeholder="Contraseña" aria-describedby="basic-addon2">
                                         <span class="input-group-addon" id="basic-addon2"><i class="fa fa-key" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
@@ -148,11 +123,11 @@
                             </div>
                             <div class="modal-footer">
                                 <div class="left-side">
-                                    <a href="registro.php" class="btn btn-default btn-link"  >Nueva Cuenta</a>
+                                    <input type="submit" class="btn btn-default btn-link" data-dismiss="modal" value="Crear Cuenta">
                                 </div>
                                 <div class="divider"></div>
                                 <div class="right-side">
-                                    <input type="submit" class="btn btn-danger btn-link" name="btnLog" Value="Acceder">
+                                    <input type="submit" class="btn btn-danger btn-link" Value="Acceder">
                                 </div>
                             </div>
                         </form>
@@ -160,19 +135,6 @@
                 </div>
             </div> 
         </div>
-        <?php
-
-        if (isset($_POST['btnLog'])) {
-            $new= new Sesion();
-            $new->setUser($_POST['txtUser']);
-            $new->setPassword($_POST['txtPass']);
-            $admin=$new->VerificarAdmin();
-            if (mysqli_num_rows($admin)!=0) {
-                echo "<script type='text/javascript'>alert('hay un Admin');</script>"
-            }
-        }
-        ?>
-        
         <div class="main" style="border: 1px solid red">
             <div class="section section-buttons">
                 <div class="container">
@@ -188,23 +150,8 @@
 ?>
 </body>
 
-<!-- Core JS Files -->
-<script src="assets/js/jquery-3.2.1.js" type="text/javascript"></script>
-<script src="assets/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
-<script src="assets/js/popper.js" type="text/javascript"></script>
-<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-
-<!-- Switches -->
-<script src="assets/js/bootstrap-switch.min.js"></script>
-
-<!--  Plugins for Slider -->
-<script src="assets/js/nouislider.js"></script>
-
-<!--  Plugins for DateTimePicker -->
-<script src="assets/js/moment.min.js"></script>
-<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
-
-<!--  Paper Kit Initialization and functons -->
-<script src="assets/js/paper-kit.js?v=2.1.0"></script>
+<?php
+    include_once('../admin/scriptJS.php');
+?>
 
 </html>
