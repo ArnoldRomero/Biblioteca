@@ -12,7 +12,7 @@ public function Conexion()
 	$this->servidor = "localhost";
 	$this->usuario = "root";
 	$this->password = "12345678";
-	$this->basedatos = "prueba";
+	$this->basedatos = "db_biblioteca";
 	
 }
 //metedos de acceso set y get
