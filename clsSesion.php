@@ -38,7 +38,7 @@ class Session extends Conexion
 	}
 
 
-	public function Verificar(){
+	public function VerificarUser(){
 		$consulta="SELECT * from usuario where nro_reg='$this->user' AND pass='$this->pass'";
 		return parent::ejecutar($consulta);
 	}

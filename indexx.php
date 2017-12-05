@@ -28,8 +28,6 @@
 
 <body>
     <?php
-    session_start();
-    ob_start();
     include_once('clsSesion.php');
     ?>
     <nav class="navbar navbar-expand-md fixed-top navbar-transparent" color-on-scroll="500">
@@ -140,7 +138,7 @@
                                     </div>
                                     <br><br>
                                     <div class="input-group">
-                                        <input type="text" name="txtPass" class="form-control" placeholder="Contraseña" aria-describedby="basic-addon2">
+                                        <input type="password" name="txtPass" class="form-control" placeholder="Contraseña" aria-describedby="basic-addon2">
                                         <span class="input-group-addon" id="basic-addon2"><i class="fa fa-key" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
@@ -163,14 +161,37 @@
         <?php
 
         if (isset($_POST['btnLog'])) {
-            $new= new Sesion();
-            $new->setUser($_POST['txtUser']);
+            $new= new Session();
+            $new->setUsuario($_POST['txtUser']);
             $new->setPassword($_POST['txtPass']);
             $admin=$new->VerificarAdmin();
             if (mysqli_num_rows($admin)!=0) {
-                echo "<script type='text/javascript'>alert('hay un Admin');</script>"
+
+                $d_admin=mysqli_fetch_object($admin);
+                $_SESSION['s_user']=$d_admin->user;
+                $_SESSION['s_admin']=true;
+
+                echo "<script type='text/javascript'>alert('User Admin: ".$_SESSION['s_user']."');</script>";
             }
+            else
+            {
+                $user=$new->VerificarUser();
+                if (mysqli_num_rows($user)!=0) {
+
+                    $d_user=mysqli_fetch_object($user);
+                    $_SESSION['s_reg']=$d_user->nro_reg;
+                    $_SESSION['s_user']=$d_user->nombres." ".$d_user->paterno;
+
+
+                    echo "<script type='text/javascript'>alert('Usuario: ".$_SESSION['s_user']."');</script>";
+                }
+                else
+                    echo "<script type='text/javascript'>alert('No Existe ningun registro');</script>";
+
+            }
+
         }
+
         ?>
         
         <div class="main" style="border: 1px solid red">
