@@ -5546,6 +5546,19 @@ a.bg-danger:hover {
     background-color: #bd2130!important
 }
 
+/*               ----Color de Background
+.bg-danger {
+    background-color: #dc3545!important
+}
+
+a.bg-danger:focus,
+a.bg-danger:hover {
+    background-color: #bd2130!important
+}
+
+*/
+
+
 .bg-light {
     background-color: #f8f9fa!important
 }

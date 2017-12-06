@@ -1,5 +1,5 @@
 
-    <nav class="navbar navbar-expand-md fixed-top bg-info"  >
+    <nav class="navbar navbar-expand-md fixed-top bg-dark">
         <div class="container">
             <div class="navbar-translate">
                 <button class="navbar-toggler navbar-toggler-right navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
