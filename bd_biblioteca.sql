@@ -4,7 +4,7 @@ create table usuario(
     nombres varchar (50) not null,
     paterno varchar (50) not null,
     materno varchar (50) not null,
-    sexo varchar (2) not null,
+    sexo varchar (10) not null,
     fecha_nacimineto date,
     telefono int,
     correo varchar(50),
@@ -26,51 +26,53 @@ create table tipo(
 CREATE TABLE upload(
 	id_up int AUTO_INCREMENT not null PRIMARY KEY,
     fecha_up date not null,
-    hora time not null,
+    cantidad int not null,
 
     id_usu_pk int (10) ZEROFILL not null,
 
     foreign key (id_usu_pk) references usuario (nro_reg)
 );
 
-create table documento(
-    id_documento int not null AUTO_INCREMENT PRIMARY kEY,
-    titulo varchar (200) not null,
-    descripcion varchar (400),
+create table archivo(
+    id_archivo int not null AUTO_INCREMENT PRIMARY kEY,
+    nombre_ar varchar(100) not null,
     size  int not null,
     formato varchar(50) not null,
-    paginas int,
 
     id_mat_pk varchar (6),
-    id_tip_pk int (2) ZEROFILL not null,
+    
 
-    foreign key (id_mat_pk) references materia (sigla),
-    foreign key (id_tip_pk) references tipo (id_tip)
+    foreign key (id_mat_pk) references materia (sigla)
+    
     
 );
 
 CREATE TABLE download(
 id_down int PRIMARY KEY not null AUTO_INCREMENT,
 fecha_down date not null,
-hora time not null,
 
 id_usd_pk int (10) ZEROFILL not null,
-id_dod_pk int not null,
+id_ard_pk int not null,
 
 foreign key (id_usd_pk) references usuario (nro_reg),
-foreign key (id_dod_pk) references documento (id_documento)
+foreign key (id_ard_pk) references archivo (id_archivo)
 
 );
 
 
 CREATE TABLE detalle_up(
     id_up_pk int not null,
-    id_doc_pk int not null,
-    detalle varchar (40),
+    id_arc_pk int not null,
+    titulo varchar (200) not null,
+    descripcion varchar (400),
+    paginas int,
+    
+    id_tip_pk int (2) ZEROFILL not null,
 
+    foreign key (id_tip_pk) references tipo (id_tip),
     foreign key (id_up_pk) references upload (id_up),
-    foreign key (id_doc_pk) references documento (id_documento),
-    primary key (id_up_pk,id_doc_pk)
+    foreign key (id_arc_pk) references archivo (id_archivo),
+    primary key (id_up_pk,id_arc_pk)
 );
 
 create table administrador(

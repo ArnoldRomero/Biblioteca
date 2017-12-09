@@ -1,3 +1,32 @@
+<?php
+ob_start();
+include_once('clsCarro.php');
+session_start();
+?>
+<?php
+include_once('clsUpload.php');
+include_once('clsDetalle.php');
+include_once('clsUsuario.php');
+include_once('clsDocumento.php');
+?>
+<?php
+if(!isset($_SESSION["carrito"]))
+    {
+      $_SESSION["carrito"]=new Carrito();
+    }
+
+
+if($_POST['Nuevo'])
+{
+    Nuevo();
+}
+
+function Nuevo(){
+
+    header ("Location: upload.php");
+    $_SESSION["carrito"]=new Carrito();
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -23,6 +52,13 @@
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+    <script> 
+        var miPopup 
+        function abreArchivo(){ 
+            miPopup = window.open("archivo.php","miwin","width=600,height=400,scrollbars=yes")
+             miPopup.focus() 
+        } 
+    </script>
 </head>
 
 <body>
@@ -68,116 +104,108 @@
         <br>
         <div class="wrapper">
 
-            <div class="main" style="border: 1px solid red">
+            <div class="main" >
                 <div class="section section-buttons">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-12">
-
-                                <div class="nav-tabs-navigation">
-                                    <div class="nav-tabs-wrapper">
-                                        <ul id="tabs" class="nav nav-tabs" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#materia" role="tab">Materias</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#tipo" role="tab">Tipo de Documento</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div id="my-tab-content" class="tab-content text-center">
-
-
-                                    <div class="tab-pane active" id="materia" role="tabpanel">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="tim-title">
-                                                    <h3>Registro de Nueva Materia</h3>
-                                                    <br/>
-                                                </div>
-                                                <form action="registro.php" method="POST">
-                                                    <div class="form-group has-success">
-                                                        <input type="text" <?php if($_GET[ 'x_idm']){echo "readonly='false'";}?> class="form-control form-control-success" id="inputSuccess1" placeholder="Sigla de Materia" name="txt_id1" value="
-                                                        <?php if($_GET['x_idm']){echo $_GET['x_idm'];}?>">
-                                                    </div><br/>
-                                                    <div class="form-group has-success">
-                                                        <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Materia" name="txt_nombre1" value="<?php if($_GET['x_nombrem']){echo $_GET['x_nombrem'];}?>">
-                                                    </div><br/>
-                                                    <div class="form-group">
-                                                        <input type=submit class="btn btn-outline-success btn-round" value="Guardar" name="botones">
-                                                        <input type=submit class="btn btn-outline-warning btn-round" value="Modificar" name="botones">
-                                                        <input type=submit class="btn btn-outline-info btn-round" value="Nuevo" name="botones">
-                                                        <input type=submit class="btn btn-outline-danger btn-round" value="Eliminar" name="botones">
-                                                    </div><br/>
-                                                </form>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="tim-title">
-                                                    <h3>Lista de Materias Registradas </h3>
-                                                    <br/>
-                                                </div>
-                                                <div>
-                                                    <table class="table table-striped">
-                                                        <tr>
-                                                            <td><b>Sigla</b></td>
-                                                            <td><b>Materia</b></td>
-                                                            <td><b>Acciones</b></td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <br/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="tab-pane" id="tipo" role="tabpanel">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="tim-title">
-                                                    <h3>Nuevo Tipo de Documento</h3>
-                                                    <br/>
-                                                </div>
-                                                <form action="registro.php" method="POST">
-
-
-                                                    <div class="form-group has-success">
-                                                        <input type="text" readonly="false" class="form-control form-control-success" id="inputSuccess1" placeholder="Id Autogenerado" name="txt_id2" value="<?php if($_GET['x_idt']){echo $_GET['x_idt'];}?>">
-                                                    </div><br/>
-                                                    <div class="form-group has-success">
-                                                        <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="Tipo de Documento" name="txt_nombre2" value="<?php if($_GET['x_nombret']){echo $_GET['x_nombret'];}?>">
-                                                    </div><br/>
-
-
-                                                    <div class="form-group">
-                                                        <input type=submit class="btn btn-outline-success btn-round" value="Guardar" name="btn">
-                                                        <input type=submit class="btn btn-outline-warning btn-round" value="Modificar" name="btn">
-                                                        <input type=submit class="btn btn-outline-info btn-round" value="Nuevo" name="btn">
-                                                        <input type=submit class="btn btn-outline-danger btn-round" value="Eliminar" name="btn">
-                                                    </div><br/>
-                                                </form>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="tim-title">
-                                                    <h3>Lista de Tipos de Documento</h3>
-                                                    <br/>
-                                                </div>
-                                                <div>
-                                                    <table class="table table-striped">
-                                                        <tr>
-                                                            <td><b>ID</b></td>
-                                                            <td><b>Tipo Doc</b></td>
-                                                            <td><b>Acciones</b></td>
-                                                        </tr>
-                                                        
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-md-8 ml-auto mr-auto text-center">
+                            <h2 class="title">Portal de Subidas de Archivos</h2>
+                            <hr>
                             </div>
+                            <div class="col-md-8 ml-auto mr-auto text-center">
+                                <a href="" onClick="abreArchivo()" class="btn btn-info btn-round" >
+                                <i class="nc-icon nc-cloud-upload-94" aria-hidden="true"></i> Agregar un Archivo
+                            </a>
+                            </div>
+                            <?php
+                                if($_GET['pelim']&&$_GET['x_ruta'])
+                                    {
+                                        $rufile=$_GET['x_ruta'];
+                                        echo "$rufile";
+                                        unlink($rufile);
+                                        $_SESSION["carrito"]->Eliminar($_GET['pelim']-1);
+                                        header("Location: upload.php");
+                                    }
+                            ?>
+
+                            <div class="col-12 row" style="">
+        
+                                <table class="table table-striped"   align="center">
+
+                                    <?php
+                                    if($_SESSION["carrito"]->getDim()>0)
+                                    {
+                                        $total=0;
+
+                                        for($k=1;$k<=$_SESSION["carrito"]->getDim();$k++)
+                                        {
+                                            $indice=$k;
+                                            $title=$_SESSION["carrito"]->getTitulo($k-1);
+                                            $des=$_SESSION["carrito"]->getDescripcion($k-1);
+                                            $tipox=$_SESSION['carrito']->getTipo($k-1);
+                                            $nom=$_SESSION['carrito']->getNombre($k-1);
+                                            $tam=$_SESSION['carrito']->getTamaño($k-1);
+                                            $forma=$_SESSION['carrito']->getFormato($k-1);
+                                            $dest=$_SESSION['carrito']->getDestino($k-1);
+
+                                            $total=$_SESSION['carrito']->getDim();
+
+                                    ?>
+                                    <tr>
+                                        <td><img src="assets/img/file.png" class="" alt="Rounded Image" height="90"></td>
+                                        <td>
+                                            <label>Archivo:</label>
+                                            <input type="text" readonly="false" name="txtName" value="<?php echo $nom;?>"><br>
+                                            <label>Formato:</label>
+                                            <input type="text" readonly="false" name="txtType" value="<?php echo $forma;?>"><br>
+                                            <label>Tamaño</label>
+                                            <input type="text" readonly="false" name="txtSize" value="<?php echo $tam;?>"><br>
+                                        </td>
+                                        <td>
+                                            <label>Titulo:</label>
+                                            <input type="text" readonly="false" name="txtTittle" value="<?php echo $title;?>"><br>
+                                            <label>Tipo:</label>
+                                            <input type="text" readonly="false" name="txtCathegory" value="<?php echo $tipox;?>"><br>
+                                            <label>Descripcion</label>
+                                            <input type="text" readonly="false" name="txtDescription" value="<?php echo $des;?>"><br>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            echo "<a href='upload.php?pelim=$k&x_ruta=$dest' class='btn btn-info btn-round' > Quitar </a>";
+                                            ?>
+                                        </td>
+
+                                    </tr>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+                                </table>
+                            </div>
+                             <?php
+                                if($_SESSION["carrito"]->getDim()==0)
+                                    {
+                                        ?>
+                                        <div class="alert alert-info col-12 row">
+                                            <div class="container">
+                                                <span>No tienes ningun Archivo en la Bandeja!</span>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+
+                            ?>
+                            
+                            <div class="col-md-8 ml-auto mr-auto text-center">
+                                <form action="upload.php" method="POST">
+                                <br>
+                                        <input type="submit" name="btnSubir" value="Subir Archivos" class="btn btn-danger btn-round"> 
+                                        <input type="submit" name="Nuevo" value="Nuevo" class="btn btn-default btn-round">
+
+                                </form>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>

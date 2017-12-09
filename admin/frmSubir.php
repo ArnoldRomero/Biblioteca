@@ -61,6 +61,7 @@
             echo "<br>Formato: ".$new->getFormato($tipo);
             echo "<br>Paginas: ".$new->getPaginas();
             echo "<br>Nombre: ".$new->getRuta();
+            echo $ruta;
 
           }
           else
