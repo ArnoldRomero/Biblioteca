@@ -154,20 +154,20 @@ function Nuevo(){
                                     <tr>
                                         <td><img src="assets/img/file.png" class="" alt="Rounded Image" height="90"></td>
                                         <td>
-                                            <label>Archivo:</label>
-                                            <input type="text" readonly="false" name="txtName" value="<?php echo $nom;?>"><br>
-                                            <label>Formato:</label>
-                                            <input type="text" readonly="false" name="txtType" value="<?php echo $forma;?>"><br>
-                                            <label>Tamaño</label>
-                                            <input type="text" readonly="false" name="txtSize" value="<?php echo $tam;?>"><br>
+                                            <b><label>Archivo:</label></b>
+                                            <label><?php echo $nom;?></label><br>
+                                            <b><label>Formato:</label></b>
+                                            <label><?php echo $forma;?></label><br>
+                                            <b><label>Tamaño</label></b>
+                                            <label><?php echo $tam;?></label><br>
                                         </td>
                                         <td>
-                                            <label>Titulo:</label>
-                                            <input type="text" readonly="false" name="txtTittle" value="<?php echo $title;?>"><br>
-                                            <label>Tipo:</label>
-                                            <input type="text" readonly="false" name="txtCathegory" value="<?php echo $tipox;?>"><br>
-                                            <label>Descripcion</label>
-                                            <input type="text" readonly="false" name="txtDescription" value="<?php echo $des;?>"><br>
+                                            <b><label>Titulo:</label></b>
+                                            <label><?php echo $title;?></label><br>
+                                            <b><label>Tipo:</label></b>
+                                            <label><?php echo $tipox;?></label><br>
+                                            <b><label>Descripcion</label></b>
+                                            <label><?php echo $des;?></label><br>
                                         </td>
                                         <td>
                                             <?php
