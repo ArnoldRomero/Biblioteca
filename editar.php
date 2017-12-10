@@ -49,7 +49,7 @@ function Hoy(){
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>UPLOAD</title>
+    <title>EDITAR</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -116,109 +116,20 @@ function Hoy(){
         <br>
         <br>
         <div class="wrapper">
-
             <div class="main" >
-                <div class="section section-buttons">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-8 ml-auto mr-auto text-center">
-                            <h2 class="title">Portal de Subidas de Archivos</h2>
-                            <hr>
+                <div class="row">
+                    <div class="section section-notifications" id="notifications">
+                        <div class="container">
+                            <div class="tim-title">
+                                <h3>Notification</h3>
                             </div>
-                            <div class="col-md-8 ml-auto mr-auto text-center">
-                                <a href="" onClick="abreArchivo()" class="btn btn-info btn-round" >
-                                <i class="nc-icon nc-cloud-upload-94" aria-hidden="true"></i> Agregar un Archivo
-                            </a>
+                        </div>
+
+
+                        <div class="alert alert-info">
+                            <div class="container">
+                                <span>Mensaje de editar </span>
                             </div>
-                            <?php
-                                if($_GET['pelim']&&$_GET['x_ruta'])
-                                    {
-                                        $rufile=$_GET['x_ruta'];
-                                        echo "$rufile";
-                                        unlink($rufile);
-                                        $_SESSION["carrito"]->Eliminar($_GET['pelim']-1);
-                                        header("Location: upload.php");
-                                    }
-                            ?>
-
-                            <div class="col-12 row" style="">
-        
-                                <table class="table table-striped"   align="center">
-
-                                    <?php
-                                    if($_SESSION["carrito"]->getDim()>0)
-                                    {
-                                        $total=0;
-
-                                        for($k=1;$k<=$_SESSION["carrito"]->getDim();$k++)
-                                        {
-                                            $indice=$k;
-                                            $title=$_SESSION["carrito"]->getTitulo($k-1);
-                                            $des=$_SESSION["carrito"]->getDescripcion($k-1);
-                                            $tipox=$_SESSION['carrito']->getTipo($k-1);
-                                            $nom=$_SESSION['carrito']->getNombre($k-1);
-                                            $tam=intval($_SESSION['carrito']->getTamaño($k-1)/(1024))." KB";
-                                            $forma=$_SESSION['carrito']->getFormato($k-1);
-                                            $dest=$_SESSION['carrito']->getDestino($k-1);
-
-                                            $total=$_SESSION['carrito']->getDim();
-
-                                    ?>
-                                    <tr>
-                                        <td><img src="assets/img/file.png" class="" alt="Rounded Image" height="90"></td>
-                                        <td>
-                                            <b><label>Archivo: </label></b>  
-                                            <label><?php echo $nom;?></label><br>
-                                            <b><label>Formato: </label></b>  
-                                            <label><?php echo $forma;?></label><br>
-                                            <b><label>Tamaño: </label></b>    
-                                            <label><?php echo $tam;?></label><br>
-                                        </td>
-                                        <td>
-                                            <b><label>Titulo: </label></b>   
-                                            <label><?php echo $title;?></label><br>
-                                            <b><label>Tipo: </label></b> 
-                                            <label><?php echo $tipox;?></label><br>
-                                            <b><label>Descripcion: </label></b>   
-                                            <label><?php echo $des;?></label><br>
-                                        </td>
-                                        <td>
-                                            <?php
-                                            echo "<a href='upload.php?pelim=$k&x_ruta=$dest' class='btn btn-info btn-round' > Quitar </a>";
-                                            ?>
-                                        </td>
-
-                                    </tr>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-                                </table>
-                            </div>
-                             <?php
-                                if($_SESSION["carrito"]->getDim()==0)
-                                    {
-                                        ?>
-                                        <div class="alert alert-info col-12 row">
-                                            <div class="container">
-                                                <span>No tienes ningun Archivo en la Bandeja!</span>
-                                            </div>
-                                        </div>
-                                        <?php
-                                    }
-
-                            ?>
-                            
-                            <div class="col-md-8 ml-auto mr-auto text-center">
-                                <form action="upload.php" method="POST">
-                                <br>
-                                        <input type="submit" name="btnSubir" value="Subir Archivos" class="btn btn-danger btn-round"> 
-                                        <input type="submit" name="Nuevo" value="Nuevo" class="btn btn-default btn-round">
-
-                                </form>
-                            </div>
-
-
                         </div>
                     </div>
                 </div>

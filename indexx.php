@@ -195,11 +195,36 @@
 
         ?>
         
-        <div class="main" style="border: 1px solid red">
+        <div class="main">
             <div class="section section-buttons">
                 <div class="container">
-                    
-                   
+                    <div class="row">
+                            <div class="col-12 row" style="">
+                                <table class="table table-striped"   align="center">
+                                    <tr>
+                                        <td><img src="assets/img/file.png" class="" alt="Rounded Image" height="90"></td>
+                                        <td>
+                                            <b><label>TITULO: </label></b>  
+                                            <label>Titulo del Archivo a Subir</label><br> 
+                                            <label>skdjflksdjhjklglkjdsa lksdjfgb lskajs adlksjadg lksad j kslajdhglaksjd slkdj gsaldk g kjsaghlkasj k slaks jash  aslkj aslk jgsdlk saldgj asglkj sa</label><br>
+                                            <b><label>TIPO: </label></b>    
+                                            <label> PDF </label> ***********
+                                            <b><label>Tamaño: </label></b>    
+                                            <label>325 KB</label><br>
+                                        </td>
+ 
+                                        <td align="right">
+                                            <?php
+                                            echo "<a href='upload.php?pelim=$k&x_ruta=$dest' class='btn btn-info btn-default' > Vista Previa</a>";
+                                            echo "<br>";
+                                            echo "<a href='upload.php?pelim=$k&x_ruta=$dest' class='btn btn-default btn-default' > Descargar </a>";
+                                            ?>
+                                        </td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                    </div>
                 </div>
             </div>
         </div>      
