@@ -26,6 +26,19 @@ function Nuevo(){
     header ("Location: upload.php");
     $_SESSION["carrito"]=new Carrito();
 }
+function Hoy(){
+    $hoy=getdate();
+        if ($hoy['mday']<10) {
+            $dia="0".$hoy['mday'];
+            $hoydia=$hoy['year']."-".$hoy['mon']."-".$dia;
+        }
+        else
+        {
+            $hoydia=$hoy['year']."-".$hoy['mon']."-".$hoy['mday'];
+        }
+    return $hoydia;
+}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -144,7 +157,7 @@ function Nuevo(){
                                             $des=$_SESSION["carrito"]->getDescripcion($k-1);
                                             $tipox=$_SESSION['carrito']->getTipo($k-1);
                                             $nom=$_SESSION['carrito']->getNombre($k-1);
-                                            $tam=$_SESSION['carrito']->getTamaño($k-1);
+                                            $tam=intval($_SESSION['carrito']->getTamaño($k-1)/(1024))." KB";
                                             $forma=$_SESSION['carrito']->getFormato($k-1);
                                             $dest=$_SESSION['carrito']->getDestino($k-1);
 
@@ -154,19 +167,19 @@ function Nuevo(){
                                     <tr>
                                         <td><img src="assets/img/file.png" class="" alt="Rounded Image" height="90"></td>
                                         <td>
-                                            <b><label>Archivo:</label></b>
+                                            <b><label>Archivo: </label></b>  
                                             <label><?php echo $nom;?></label><br>
-                                            <b><label>Formato:</label></b>
+                                            <b><label>Formato: </label></b>  
                                             <label><?php echo $forma;?></label><br>
-                                            <b><label>Tamaño</label></b>
+                                            <b><label>Tamaño: </label></b>    
                                             <label><?php echo $tam;?></label><br>
                                         </td>
                                         <td>
-                                            <b><label>Titulo:</label></b>
+                                            <b><label>Titulo: </label></b>   
                                             <label><?php echo $title;?></label><br>
-                                            <b><label>Tipo:</label></b>
+                                            <b><label>Tipo: </label></b> 
                                             <label><?php echo $tipox;?></label><br>
-                                            <b><label>Descripcion</label></b>
+                                            <b><label>Descripcion: </label></b>   
                                             <label><?php echo $des;?></label><br>
                                         </td>
                                         <td>
@@ -215,6 +228,53 @@ function Nuevo(){
         /**********PIE DE PAGINA***********/
         include_once('html_footer.php');
     ?>
+
+<?php
+if (isset($_POST['btnSubir'])&&$_SESSION['carrito']->getDim()>0) 
+{
+    //Esto Biene de la Sesion Usuario
+    $id_usuario='0213164442';
+    $exito=0;
+
+    $obj= new Upload();
+    $obj->setFecha(Hoy());
+    $obj->setIdUsuario($id_usuario);
+    $obj->setCantidad($_SESSION['carrito']->getDim());
+    $obj->Guardar();
+    $cod_upload=$obj->ultimo_codigo();
+
+
+    for($k=1;$k<=$_SESSION["carrito"]->getDim();$k++){
+        $djr=new Documento();
+        $djr->setSize($_SESSION['carrito']->getTamaño($k-1));
+        $djr->setFormato($_SESSION['carrito']->getFormato($k-1));
+        $djr->setNombre($_SESSION['carrito']->getNombre($k-1));
+        $djr->Guardar();
+        $id_document=$djr->ultimo_codigo();
+/*  
+        echo "<br>".$djr->getSize();
+        echo "<br>".$djr->getFormato();
+        echo "<br>".$djr->getNombre();
+        echo "<br>".$djr->ultimo_codigo();
+*/
+        $det = new Detalle();
+        $det->setIdUpload($cod_upload);
+        $det->setIdDocumento($id_document);
+        $det->setDescripcion($_SESSION["carrito"]->getDescripcion($k-1));
+        $det->setTitulo($_SESSION["carrito"]->getTitulo($k-1));
+        $det->setTipo($_SESSION['carrito']->getTipo($k-1));
+        if ($det->Guardar()) { 
+            $exito++;
+        }
+    }
+        
+    Nuevo();
+
+
+}
+
+
+?>
 </body>
 <!-- Core JS Files -->
 <script src="assets/js/jquery-3.2.1.js" type="text/javascript"></script>

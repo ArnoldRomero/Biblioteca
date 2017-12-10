@@ -7,7 +7,6 @@ class Documento extends Conexion{
 	private $size;
 	private $formato;
 	private $nombre;
-	private $id_tipo;
 
 	//construtor
 	public function Documento()
@@ -16,7 +15,6 @@ class Documento extends Conexion{
 		$this->size=0;
 		$this->formato="";
 		$this->nombre="";
-		$this->id_tipo=0;
 	}
 
 
@@ -60,22 +58,18 @@ class Documento extends Conexion{
 		return $this->nombre;
 	}
 
-
-	public function setIdTipo($valor)
-	{
-		$this->id_tipo=$valor;
+	public function ultimo_codigo()	{
+	  $s="select max(id_archivo) as maximo from archivo";	  
+	  $reg = parent::ejecutar($s);	
+	  $row =mysqli_fetch_array($reg);
+	  $ultimo=$row['maximo'];
+	  $ultimo=$ultimo;
+      return $ultimo;
 	}
-	public function getIdTipo()
-	{
-		return $this->id_tipo;
-	}
-
-
-
 
 	public function Guardar()
 	{
-     $sql="INSERT into documento (size,formato,nombre,id_tipo) values('$this->size','$this->formato','$this->nombre','$this->id_tipo')";
+     $sql="INSERT into archivo (size,formato,nombre_ar) values('$this->size','$this->formato','$this->nombre')";
 		
 		if(parent::ejecutar($sql))
 			return true;

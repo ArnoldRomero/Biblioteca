@@ -57,7 +57,7 @@ class Upload extends Conexion{
 	}
 	
 	public function Guardar(){
-     $sql="insert into upload (fecha_up,cantidad,id_usu) values('$this->fecha','$this->cantidad','$this->id_usuario')";		
+     $sql="insert into upload (fecha_up,cantidad,id_usu_pk) values('$this->fecha','$this->cantidad','$this->id_usuario')";		
 		if(parent::ejecutar($sql))
 			return true;
 		else

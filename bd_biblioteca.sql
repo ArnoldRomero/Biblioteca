@@ -12,11 +12,6 @@ create table usuario(
 );
 
 
-create table materia(
-    sigla varchar (6) not null primary key,
-    nombre_m varchar (50) not null
-);
-
 create table tipo(
     id_tip int (2) ZEROFILL not null PRIMARY KEY AUTO_INCREMENT,
     nombre_tipo varchar (20) not null
@@ -35,14 +30,9 @@ CREATE TABLE upload(
 
 create table archivo(
     id_archivo int not null AUTO_INCREMENT PRIMARY kEY,
-    nombre_ar varchar(100) not null,
+    nombre_ar varchar(200) not null,
     size  int not null,
-    formato varchar(50) not null,
-
-    id_mat_pk varchar (6),
-    
-
-    foreign key (id_mat_pk) references materia (sigla)
+    formato varchar(50) not null
     
     
 );
@@ -65,7 +55,6 @@ CREATE TABLE detalle_up(
     id_arc_pk int not null,
     titulo varchar (200) not null,
     descripcion varchar (400),
-    paginas int,
     
     id_tip_pk int (2) ZEROFILL not null,
 
