@@ -91,7 +91,7 @@
                                     <label>Password</label>
                                     <input type="password" class="form-control" name="txt_pas1" value="" placeholder="Password">
 
-                                    <label>Password</label>
+                                    <label>Confirmar Password</label>
                                     <input type="password" class="form-control" name="txt_pas2" value="" placeholder="Password">
 
                                     <input type="submit" class="btn btn-danger btn-block btn-round" name="btnRegistrar" value="REGISTRARSE">
@@ -124,10 +124,10 @@
 
 
         if ($new->GuardarNuevo()) {
-            echo "Exito";
+            echo "<script type='text/javascript'>alert('Registro Exitoso!');</script>";
         }
         else
-            echo "Error";
+            echo "<script type='text/javascript'>alert('Error, ingrese correctamente todos los campos!!');</script>";
     }
 ?>
 

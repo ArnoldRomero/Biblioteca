@@ -18,7 +18,7 @@ include_once('clsDocumento.php');
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>EDITAR</title>
+    <title>Downloads</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -34,13 +34,6 @@ include_once('clsDocumento.php');
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
-    <script> 
-        var miPopup 
-        function abreArchivo(){ 
-            miPopup = window.open("archivo.php","miwin","width=600,height=400,scrollbars=yes")
-             miPopup.focus() 
-        } 
-    </script>
 </head>
 
 <body>
@@ -78,25 +71,35 @@ include_once('clsDocumento.php');
                 </div>
             </div>
         </nav>
-        <br>
-        <br>
-        <br>
+
         <div class="wrapper">
             <div class="main" >
                 <div class="row">
                     <div class="section section-notifications" id="notifications">
-                        <div class="container">
-                            <div class="tim-title">
-                                <h3>Notification</h3>
-                            </div>
-                        </div>
-
-
-                        <div class="alert alert-info">
+                        <form>
                             <div class="container">
-                                <span>Mensaje de editar </span>
+                                <div class="tim-title row" class="bg bg-dark">
+                                    <div class="col-sm-3">
+                                        <label>Lista de Descargas de:</label>
+                                        <input type="date" class="form-control" width="20" name="txtFecha" value="">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label>hasta: </label>
+                                        <input type="date" class="form-control " name="txtFecha" value="">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <br><br>
+                                        <label>
+                                            <input type="checkbox" name="check" value="on"  data-toggle="switch">
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <br>
+                                        <input type="submit" class="btn btn-outline-success btn-round col-12" name="btnSearch" value="Buscar" value="">
+                                    </div
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

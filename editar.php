@@ -9,37 +9,7 @@ include_once('clsDetalle.php');
 include_once('clsUsuario.php');
 include_once('clsDocumento.php');
 ?>
-<?php
-if(!isset($_SESSION["carrito"]))
-    {
-      $_SESSION["carrito"]=new Carrito();
-    }
 
-
-if($_POST['Nuevo'])
-{
-    Nuevo();
-}
-
-function Nuevo(){
-
-    header ("Location: upload.php");
-    $_SESSION["carrito"]=new Carrito();
-}
-function Hoy(){
-    $hoy=getdate();
-        if ($hoy['mday']<10) {
-            $dia="0".$hoy['mday'];
-            $hoydia=$hoy['year']."-".$hoy['mon']."-".$dia;
-        }
-        else
-        {
-            $hoydia=$hoy['year']."-".$hoy['mon']."-".$hoy['mday'];
-        }
-    return $hoydia;
-}
-
-?>
 <!doctype html>
 <html lang="en">
 
@@ -65,13 +35,7 @@ function Hoy(){
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
-    <script> 
-        var miPopup 
-        function abreArchivo(){ 
-            miPopup = window.open("archivo.php","miwin","width=600,height=400,scrollbars=yes")
-             miPopup.focus() 
-        } 
-    </script>
+
 </head>
 
 <body>
@@ -109,9 +73,6 @@ function Hoy(){
                 </div>
             </div>
         </nav>
-        <br>
-        <br>
-        <br>
         <div class="wrapper">
             <div class="main" >
                 <div class="row">

@@ -2,6 +2,19 @@
 ob_start();
 include_once('clsCarro.php');
 session_start();
+
+if (isset($_SESSION['s_admin'])) {
+    header("location: admin/index.php");
+}
+if (isset($_SESSION['s_user'])&& isset($_SESSION['s_reg'])) {
+    $user_actual=$_SESSION['s_user'];
+    $registro_user=$_SESSION['s_reg'];
+}
+else
+    header("Location: index.php");
+
+?>
+
 ?>
 <?php
 include_once('clsUpload.php');
@@ -22,7 +35,6 @@ if($_POST['Nuevo'])
 
 function Nuevo(){
 
-    header ("Location: upload.php");
     $_SESSION["carrito"]=new Carrito();
 }
 function Hoy(){
@@ -229,12 +241,11 @@ function Hoy(){
 if (isset($_POST['btnSubir'])&&$_SESSION['carrito']->getDim()>0) 
 {
     //Esto Biene de la Sesion Usuario
-    $id_usuario='0213164442';
     $exito=0;
 
     $obj= new Upload();
     $obj->setFecha(Hoy());
-    $obj->setIdUsuario($id_usuario);
+    $obj->setIdUsuario($registro_user);
     $obj->setCantidad($_SESSION['carrito']->getDim());
     $obj->Guardar();
     $cod_upload=$obj->ultimo_codigo();
@@ -264,6 +275,7 @@ if (isset($_POST['btnSubir'])&&$_SESSION['carrito']->getDim()>0)
         }
     }     
     Nuevo();
+    echo "<script type='text/javascript'>alert('Se registraron correctamente todos los Archivos');</script>";
 }
 
 
