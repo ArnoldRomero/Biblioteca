@@ -1,12 +1,20 @@
 <?php
 ob_start();
 session_start();
+
+if (isset($_SESSION['s_user'])&& isset($_SESSION['s_reg'])) {
+    $user_actual=$_SESSION['s_user'];
+    $cod_user=$_SESSION['s_reg'];
+}
+else{
+    header("location: index.php");
+}
 ?>
 <?php
-include_once('clsUpload.php');
 include_once('clsDetalle.php');
 include_once('clsUsuario.php');
 include_once('clsDocumento.php');
+include_once('clsDownload.php');
 ?>
 
 <!doctype html>
@@ -37,6 +45,22 @@ include_once('clsDocumento.php');
 </head>
 
 <body>
+    <?php
+        function Hoy(){
+            $hoy=getdate();
+                if ($hoy['mday']<10) {
+                    $dia="0".$hoy['mday'];
+                    $hoydia=$hoy['year']."-".$hoy['mon']."-".$dia;
+                }
+                else
+                {
+                    $hoydia=$hoy['year']."-".$hoy['mon']."-".$hoy['mday'];
+                }
+            return $hoydia;
+        }
+
+        $diahoy=Hoy();
+    ?>
         <nav class="navbar navbar-expand-md fixed-top bg-dark">
             <div class="container">
 
@@ -73,19 +97,20 @@ include_once('clsDocumento.php');
         </nav>
 
         <div class="wrapper">
-            <div class="main" >
+            <div class="main" style="min-height: 550px;">
                 <div class="row">
                     <div class="section section-notifications" id="notifications">
-                        <form>
+                        <form action="descargas.php" method="POST">
                             <div class="container">
                                 <div class="tim-title row" class="bg bg-dark">
+
                                     <div class="col-sm-3">
                                         <label>Lista de Descargas de:</label>
-                                        <input type="date" class="form-control" width="20" name="txtFecha" value="">
+                                        <input type="date" class="form-control" width="20" name="txtFecha1" value="<?php echo Hoy();?>">
                                     </div>
                                     <div class="col-sm-3">
                                         <label>hasta: </label>
-                                        <input type="date" class="form-control " name="txtFecha" value="">
+                                        <input type="date" class="form-control " name="txtFecha2" value="">
                                     </div>
                                     <div class="col-sm-3">
                                         <br><br>
@@ -96,8 +121,79 @@ include_once('clsDocumento.php');
                                     <div class="col-sm-3">
                                         <br>
                                         <input type="submit" class="btn btn-outline-success btn-round col-12" name="btnSearch" value="Buscar" value="">
-                                    </div
+                                    </div>
                                 </div>
+
+                                    <?php
+                                        if (isset($_POST['btnSearch'])) {
+
+                                            $fe=new Download();
+
+                                            if ($_POST['check']!="on") {
+                                                $dato=$fe->BuscarHoy($cod_user,$_POST['txtFecha1']);
+                                                Mostrar($dato);
+                                                //echo $cod_user." ".$_POST['txtFecha1'];
+                                            }
+                                            else{
+                                                $dato=$fe->BuscarEntreFecha($cod_user,$_POST['txtFecha1'],$_POST['txtFecha2']); 
+                                                Mostrar($dato);
+                                                //echo $cod_user." ".$_POST['txtFecha1']." ".$_POST['txtFecha2'];
+                                            } 
+                                        }
+                                        else{
+                                            $fa = new Download();
+                                            $dato=$fa->BuscarHoy($cod_user,$diahoy);
+                                            Mostrar($dato);
+                                        }
+                                        
+                                        function Mostrar($dato)
+                                        {
+                                            if (mysqli_num_rows($dato)==0) 
+                                            {
+                                            echo "<div class='alert alert-info col-13 row'>
+                                                    <div class='container'>
+                                                        <span>No Tienes Ningun Archivo descargado para la Fecha</span>
+                                                    </div>
+                                                </div>";
+                                            }
+                                            else{
+                                    ?>
+                                <table class="table table-striped"   align="center">
+                                    <?php
+                                                while ($fila=mysqli_fetch_object($dato)) 
+                                                {
+                                                    $tam=$fila->size/1024;
+                                                    $t=intval($tam)." KB";
+                                    ?>
+                                    <tr>
+                                        <td width="20">
+                                            <img src="assets/img/logo.png" class="" alt="Rounded Image" height="90">
+                                        </td>
+                                        <td>
+                                            <b><label>TITULO: </label></b>  
+                                            <label><?php echo $fila->titulo;?></label><br> 
+                                            <label><?php echo $fila->descripcion; ?></label>    
+                                        </td>
+ 
+                                        <td>
+                                            <b><label>Formato: </label></b>  
+                                            <label>PDF</label><br> 
+                                            <label>Tamaño: </label>
+                                            <b><label><?php echo $t; ?></label></b>
+                                        </td>
+                                        <td>  
+                                            <label>Fecha de Descarga: </label><br> 
+                                            <b><?php echo $fila->fecha_down; ?></b><br>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                                }
+                                            }
+                                        }
+                                    ?>
+
+
+                                </table>
                             </div>
                         </form>
                     </div>

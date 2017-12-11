@@ -60,7 +60,17 @@ class Download extends Conexion{
 	
 	public function Buscar()
 	{
-		$sql="SELECT *from documento";
+		$sql="SELECT *from download";
+		return parent::ejecutar($sql);
+	}
+
+	public function BuscarHoy($user,$fechahoy){
+		$sql="SELECT * FROM download,archivo,detalle_up WHERE download.id_ard_pk=archivo.id_archivo AND archivo.id_archivo=detalle_up.id_arc_pk AND id_usd_pk='$user' AND fecha_down='$fechahoy' ORDER BY fecha_down ASC;";
+		return parent::ejecutar($sql);
+	}
+
+	public function BuscarEntreFecha($user,$fecha1,$fecha2){
+		$sql="SELECT * FROM download,archivo,detalle_up WHERE download.id_ard_pk=archivo.id_archivo AND archivo.id_archivo=detalle_up.id_arc_pk AND id_usd_pk='$user' AND fecha_down>='$fecha1' AND fecha_down<='$fecha2' ORDER BY fecha_down DESC;";
 		return parent::ejecutar($sql);
 	}	
 

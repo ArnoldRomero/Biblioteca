@@ -35,7 +35,7 @@
                     <span class="navbar-toggler-bar"></span>
                     <span class="navbar-toggler-bar"></span>
                 </button>
-                <a class="navbar-brand" href="https://www.creative-tim.com">BIBLIOTECA |> PERFIL</a>
+                <a class="navbar-brand" href="">BIBLIOTECA | PERFIL</a>
             </div>
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav ml-auto">
@@ -102,7 +102,7 @@
                                                     <h3>MODIFICACION</h3>
                                                     <br/>
                                                 </div>
-                                                <form action="registro.php" method="POST">
+                                                <form action="perfil.php" method="POST">
                                                     <div class="form-group has-success">
                                                         <input type="text" <?php if($_GET['x_idm']){echo "readonly='false'";}?> class="form-control form-control-success" id="inputSuccess1" placeholder="Sigla de Materia" name="txt_id1" value="<?php if($_GET['x_idm']){echo $_GET['x_idm'];}?>">
                                                     </div><br/>
