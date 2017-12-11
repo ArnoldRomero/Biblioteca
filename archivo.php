@@ -11,25 +11,46 @@ include_once('clsTipo.php');
 <title>Seleccionar Archivo</title>
 
 <!-- Llamada a la CSS -->
-<link rel="stylesheet" href="estilo.css" type="text/css" />
+    <link rel="stylesheet" href="estilo.css" type="text/css" />
 
+    <meta charset="utf-8" />
+    <!--<link rel="icon" type="image/png" href="assets/img/favicon.ico">-->
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Perfil de Usuario</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Bootstrap core CSS     -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/paper-kit.css?v=2.1.0" rel="stylesheet" />
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="assets/css/demo.css" rel="stylesheet" />
+
+    <!--     Fonts and icons     -->
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/nucleo-icons.css" rel="stylesheet">
 </head>
 <body>
-
-<center><form id="form1" method="post" action="archivo.php" enctype="multipart/form-data">
+<div class="form-group">
+<center><form id="form1" method="post" action="archivo.php" enctype="multipart/form-data" >
 <fieldset id="form">
 <legend>SELECCIONAR ARCHIVO</legend>
-<table width="342" border="0">
+<table max-width="200" border="0">
 	<tr>
       	<td width="102"><label>ARCHIVO:</label></td>
       	<td width="230">
-      		<input type="file" name="archivo">
+      		<input type="file" name="archivo" >
       	</td>
     </tr>
     <tr>
-      	<td><label>Tipo de Archivo </label></td>
+      	<td><label>TIPO DOCUMENTO </label></td>
       	<td>
-        	<select name="txtTipo">
+        	<select name="txtTipo" class="form-control form-control-success">
         		<?php
         			$new = new Tipo();
         			$dato=$new->Buscar();
@@ -41,28 +62,25 @@ include_once('clsTipo.php');
 		</td>
     </tr>
     <tr>
-      	<td><label>Titulo</label></td>
+      	<td><label>TITULO</label></td>
       	<td>
-        	<input name="txtTitulo" type="text">		
+        	<input name="txtTitulo" type="text" class="form-control form-control-success">		
 		</td>
     </tr>
 	<tr>
-	<td><label>Descripcion</label></td>
+	<td><label>DESCRIPCION</label></td>
       	<td>	
-			<textarea name="txtdes" placeholder="Descripcion del archivo" ></textarea>
+			<textarea name="txtdes" placeholder="Descripcion del archivo" class="form-control form-control-success" ></textarea>
 	  	</td>
     </tr>
 	
 	<tr>
       
-      	<td>
+      	<td colspan="2">
       	<center>
-				<input type="submit" name="Agregar" value="Agregar Archivo" />
-      	</center>
-  		</td>
-  		<td>
-      	<center>
-				<input type="submit" name="Volver" value="Volver" />
+				<input type="submit" name="Agregar" value="Agregar Archivo" class="btn btn-outline-info btn-round" />
+
+				<input type="submit" name="Volver" value="Volver" class="btn btn-outline-default btn-round" />
       	</center>
   		</td>
     </tr>
@@ -79,6 +97,7 @@ include_once('clsTipo.php');
 	</tr>
 
 </table></form></center>
+</div>
 <?
 	if ($_POST["Agregar"])
 	{

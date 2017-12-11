@@ -1,4 +1,15 @@
 <?php
+ob_start();
+session_start();
+
+if (isset($_SESSION['s_user'])&& isset($_SESSION['s_reg'])) {
+    $user_actual=$_SESSION['s_user'];
+    $cod_user=$_SESSION['s_reg'];
+}
+else{
+    header("location: index.php");
+}
+
 include_once('clsDocumento.php');
 include_once('clsDownload.php');
 
@@ -42,7 +53,7 @@ $dat=$d->Buscard($_GET['arc']);
 $f=mysqli_fetch_array($dat);
 
 if (Down()) {
-	$usuario = "0213164442";
+	$usuario = $cod_user;
 	$hoy=Hoy();
 	$id_archivo=$f['id_archivo'];
 

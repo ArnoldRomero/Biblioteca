@@ -104,6 +104,16 @@ class Detalle extends Conexion
 		return parent::ejecutar($sql); 
 	}
 
+	public function Filtrar($tittle,$fecha){
+		$sql="SELECT * FROM detalle_up,archivo,tipo WHERE detalle_up.id_arc_pk=archivo.id_archivo AND detalle_up.id_tip_pk=tipo.id_tip AND titulo like '%$criterio%' AND id_tip like '$tipo%';"; 
+		return parent::ejecutar($sql); 
+	}
+	public function BuscarxUsuario($criterio) {
+	$sql="SELECT * from detalle_up,upload where upload.id_up=detalle_up.id_up_pk AND id_usu_pk='$criterio' ORDER BY fecha_up DESC; ";
+		return parent::ejecutar($sql);
+	}
+
+
 }    
 
 ?>

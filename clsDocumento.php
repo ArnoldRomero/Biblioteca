@@ -79,7 +79,7 @@ class Documento extends Conexion{
 	
 	public function Buscar()
 	{
-		$sql="SELECT *from documento";
+		$sql="SELECT *from archivo";
 		return parent::ejecutar($sql);
 	}	
 
