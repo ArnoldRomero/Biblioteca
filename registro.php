@@ -44,13 +44,13 @@
                         <a href="index.php"  class="nav-link"><i class="fa fa-home"></i>Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a href=""  class="nav-link"><i class="fa fa-upload"></i>Archivos</a>
+                        <a href="upload.php" class="nav-link"><i class="fa fa-upload"></i>Archivos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link"><i class="fa fa-download"></i>Descargas</a>
+                        <a href="descargas.php"  class="nav-link"><i class="fa fa-download"></i>Descargas</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">  <i class="fa fa-user"></i>Mi Perfil</a>
+                        <a href="perfil.php" class="nav-link">  <i class="fa fa-user"></i>Mi Perfil</a>
                     </li>
                 </ul>
             </div>

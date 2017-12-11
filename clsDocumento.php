@@ -77,13 +77,17 @@ class Documento extends Conexion{
 			return false;	
 	}
 	
-									
-
 	public function Buscar()
 	{
 		$sql="SELECT *from documento";
 		return parent::ejecutar($sql);
-	}										
+	}	
+
+	public function Buscard($criterio) {
+	$sql="select * from archivo where id_archivo=$criterio";
+		return parent::ejecutar($sql);
+	}
+										
 
 }    
 ?>

@@ -90,8 +90,20 @@ class Detalle extends Conexion
 	}
 	
 	public function buscar($criterio) {
-	$sql="select * from detalle_venta where id_upload=$criterio";
+	$sql="select * from detalle_up where id_arc_pk=$criterio";
 		return parent::ejecutar($sql);
 	}
+
+	public function UltimosCinco(){
+		$sql="SELECT * FROM detalle_up,archivo,tipo WHERE detalle_up.id_arc_pk=archivo.id_archivo AND detalle_up.id_tip_pk=tipo.id_tip ORDER BY id_archivo DESC LIMIT 5"; 
+		return parent::ejecutar($sql); 
+	}
+
+	public function Busqueda($criterio,$tipo){
+		$sql="SELECT * FROM detalle_up,archivo,tipo WHERE detalle_up.id_arc_pk=archivo.id_archivo AND detalle_up.id_tip_pk=tipo.id_tip AND titulo like '%$criterio%' AND id_tip like '$tipo%';"; 
+		return parent::ejecutar($sql); 
+	}
+
 }    
+
 ?>

@@ -35,27 +35,24 @@
                     <span class="navbar-toggler-bar"></span>
                     <span class="navbar-toggler-bar"></span>
                 </button>
-                <a class="navbar-brand" href="https://www.creative-tim.com">BIBLIOTECA</a>
+                <a class="navbar-brand" href="https://www.creative-tim.com">BIBLIOTECA |> PERFIL</a>
             </div>
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="" target="_blank" class="nav-link"><i class="fa fa-home"></i>Inicio</a>
+                        <a href="index.php" class="nav-link"><i class="fa fa-home"></i>Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" target="_blank" class="nav-link"><i class="fa fa-upload"></i>Archivos</a>
+                        <a href="upload.php" class="nav-link"><i class="fa fa-upload"></i>Archivos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" target="_blank" class="nav-link"><i class="fa fa-download"></i>Descargas</a>
+                        <a href="descargas.php" class="nav-link"><i class="fa fa-download"></i>Descargas</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" target="_blank" class="nav-link">  <i class="fa fa-user"></i>Mi Perfil</a>
+                        <a href="perfil.php" class="nav-link">  <i class="fa fa-user"></i>Mi Perfil</a>
                     </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn btn-outline-danger btn-round" data-toggle="modal" data-target="#myModal">
-                                Login
-                            </button>
-
+                    <li class="nav-item ">
+                        <a href="logout.php" class="btn btn-outline-danger btn-round"><i class="nc-icon nc-user-run"></i> Salir  </a>
                     </li>
                 </ul>
             </div>

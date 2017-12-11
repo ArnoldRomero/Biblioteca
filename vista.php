@@ -9,35 +9,7 @@ include_once('clsDetalle.php');
 include_once('clsUsuario.php');
 include_once('clsDocumento.php');
 ?>
-<?php
-if(!isset($_SESSION["carrito"]))
-    {
-      $_SESSION["carrito"]=new Carrito();
-    }
 
-
-if($_POST['Nuevo'])
-{
-    Nuevo();
-}
-
-function Nuevo(){
-
-    header ("Location: upload.php");
-    $_SESSION["carrito"]=new Carrito();
-}
-function Hoy(){
-    $hoy=getdate();
-        if ($hoy['mday']<10) {
-            $dia="0".$hoy['mday'];
-            $hoydia=$hoy['year']."-".$hoy['mon']."-".$dia;
-        }
-        else
-        {
-            $hoydia=$hoy['year']."-".$hoy['mon']."-".$hoy['mday'];
-        }
-    return $hoydia;
-}
 
 ?>
 <!doctype html>
@@ -49,7 +21,7 @@ function Hoy(){
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>EDITAR</title>
+    <title>VISTA</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -109,23 +81,17 @@ function Hoy(){
                 </div>
             </div>
         </nav>
-        <br>
-        <br>
-        <br>
         <div class="wrapper">
             <div class="main" >
-                <div class="row">
-                    <div class="section section-notifications" id="notifications">
-                        <div class="container">
-                            <div class="tim-title">
-                                <h3>Notification</h3>
+                <div class="section section-buttons">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 ml-auto mr-auto text-center">
+                            <h2 class="title">Vista del Archivo</h2>
+                            <hr>
                             </div>
-                        </div>
-
-
-                        <div class="alert alert-info">
-                            <div class="container">
-                                <span>Mensaje de editar </span>
+                            <div class="col-md-8 ml-auto mr-auto text-center">
+                                <embed src="archivos/<?php echo $_GET['file'];?>" class="embed-responsive-item" width="800" height="500" frameborder="0"></embed>
                             </div>
                         </div>
                     </div>
@@ -136,49 +102,6 @@ function Hoy(){
         /**********PIE DE PAGINA***********/
         include_once('html_footer.php');
     ?>
-
-<?php
-if (isset($_POST['btnSubir'])&&$_SESSION['carrito']->getDim()>0) 
-{
-    //Esto Biene de la Sesion Usuario
-    $id_usuario='0213164442';
-    $exito=0;
-
-    $obj= new Upload();
-    $obj->setFecha(Hoy());
-    $obj->setIdUsuario($id_usuario);
-    $obj->setCantidad($_SESSION['carrito']->getDim());
-    $obj->Guardar();
-    $cod_upload=$obj->ultimo_codigo();
-
-
-    for($k=1;$k<=$_SESSION["carrito"]->getDim();$k++){
-        $djr=new Documento();
-        $djr->setSize($_SESSION['carrito']->getTamaño($k-1));
-        $djr->setFormato($_SESSION['carrito']->getFormato($k-1));
-        $djr->setNombre($_SESSION['carrito']->getNombre($k-1));
-        $djr->Guardar();
-        $id_document=$djr->ultimo_codigo();
-/*  
-        echo "<br>".$djr->getSize();
-        echo "<br>".$djr->getFormato();
-        echo "<br>".$djr->getNombre();
-        echo "<br>".$djr->ultimo_codigo();
-*/
-        $det = new Detalle();
-        $det->setIdUpload($cod_upload);
-        $det->setIdDocumento($id_document);
-        $det->setDescripcion($_SESSION["carrito"]->getDescripcion($k-1));
-        $det->setTitulo($_SESSION["carrito"]->getTitulo($k-1));
-        $det->setTipo($_SESSION['carrito']->getTipo($k-1));
-        if ($det->Guardar()) { 
-            $exito++;
-        }
-    }     
-    Nuevo();
-}
-
-
 ?>
 </body>
 <!-- Core JS Files -->

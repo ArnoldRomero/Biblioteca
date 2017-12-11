@@ -1,3 +1,15 @@
+<?php
+  ob_start();
+  session_start();
+
+
+if (isset($_SESSION['s_admin'])) {
+    header("location: admin/index.php");
+}
+if (isset($_SESSION['s_user'])&& isset($_SESSION['s_reg'])) {
+    $user_actual=$_SESSION['s_user'];
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -29,6 +41,10 @@
 <body>
     <?php
     include_once('clsSesion.php');
+    include_once('clsTipo.php');
+    include_once('clsDocumento.php');
+    include_once('clsUpload.php');
+    include_once('clsDetalle.php');
     ?>
     <nav class="navbar navbar-expand-md fixed-top navbar-transparent" color-on-scroll="500">
         <div class="container">
@@ -46,23 +62,37 @@
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href=""  class="nav-link"><i class="fa fa-home"></i>Inicio</a>
+                        <a href="index.php"  class="nav-link"><i class="fa fa-home"></i>Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link"><i class="fa fa-upload"></i>Archivos</a>
+                        <a href="upload.php" class="nav-link"><i class="fa fa-upload"></i>Archivos</a>
                     </li>
                     <li class="nav-item">
-                        <a href=""  class="nav-link"><i class="fa fa-download"></i>Descargas</a>
+                        <a href="descargas.php"  class="nav-link"><i class="fa fa-download"></i>Descargas</a>
                     </li>
+                    
+                    <?php
+                    if (isset($_SESSION['s_reg'])) {
+                    ?>
                     <li class="nav-item">
-                        <a href="" class="nav-link">  <i class="fa fa-user"></i>Mi Perfil</a>
+                        <a href="perfil.php" class="nav-link">  <i class="fa fa-user"></i>Mi Perfil</a>
                     </li>
+                    <li class="nav-item ">
+                        <a href="logout.php" class="btn btn-outline-danger btn-round"><i class="nc-icon nc-user-run"></i> Salir  </a>
+                    </li>
+                    <?php
+                    }
+                    else{
+                    ?>
                     <li class="nav-item">
                             <button type="button" class="btn btn-outline-danger btn-round" data-toggle="modal" data-target="#myModal">
                                 Login
                             </button>
                        
                     </li>
+                    <?php
+                         }
+                    ?>
                 </ul>
             </div>
         </div>
@@ -76,7 +106,7 @@
     		<div class="content-center">
     			<div class="container">
     				<div class="title-brand">
-    					<h1 class="presentation-title">Bibliotec Virtual</h1>
+    					<h1 class="presentation-title">Biblioteca Virtual</h1>
     					<div class="fog-low">
     						<img src="assets/img/fog-low.png" alt="">
     					</div>
@@ -90,15 +120,15 @@
                         <form class="col-sm-12" action="" method="POST">
                             <div class="col-sm-12"> 
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Titulo de Documento">
+                                    <input type="text" name="txtBusqueda" class="form-control" placeholder="Titulo de Documento">
                                     <br>
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
+                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1" >
                                             <font class="text-warning">Libros   |</font>
                                             <span class="form-check-sign"></span>   
                                         </label>
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="2">
                                             <font class="text-warning">Tesis |</font>
                                             <span class="form-check-sign"></span>
                                         </label>
@@ -128,7 +158,7 @@
                                    <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="indexx.php" method="POST">
+                        <form action="index.php" method="POST">
                             <div class="modal-body">
                             
                                 <div class="form-group"> 
@@ -170,8 +200,8 @@
                 $d_admin=mysqli_fetch_object($admin);
                 $_SESSION['s_user']=$d_admin->user;
                 $_SESSION['s_admin']=true;
+                header("location: index.php");
 
-                echo "<script type='text/javascript'>alert('User Admin: ".$_SESSION['s_user']."');</script>";
             }
             else
             {
@@ -179,12 +209,11 @@
                 if (mysqli_num_rows($user)!=0) {
 
                     $d_user=mysqli_fetch_object($user);
-                    $_SESSION['s_reg']=$d_user->nro_reg;
+                    
                     $_SESSION['s_user']=$d_user->nombres." ".$d_user->paterno;
-                    header("location: admin/index.php");
+                    $_SESSION['s_reg']=$d_user->nro_reg;
 
-
-                    echo "<script type='text/javascript'>alert('Usuario: ".$_SESSION['s_user']."');</script>";
+                    header("location: index.php");
                 }
                 else
                     echo "<script type='text/javascript'>alert('No Existe ningun registro');</script>";
@@ -199,29 +228,98 @@
             <div class="section section-buttons">
                 <div class="container">
                     <div class="row">
-                            <div class="col-12 row" style="">
+                            <div class="col-12 row" >
+                                <div class="alert alert-info col-12">
+                                    <div class="container">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <i class="nc-icon nc-simple-remove"></i>
+                                            </button>
+                                            <?php
+
+                                            if (isset($_POST['btnBuscar'])) {
+                                                if ($_POST['txtBusqueda']!="") {
+                                                    $asd=$_POST['txtBusqueda'];
+                                                    echo "<h6>Resultado de $asd </h6>";
+                                                }
+                                                else
+                                                    echo "<h6>No introduciste una busqueda</h6>";
+                                            
+                                            }
+                                            else
+                                                echo "<h6>RESULTADO DE LAS ULTIMOS 5 ARCHIVOS SUBIDOS</h6>";
+                                            ?>     
+                                    </div>
+                                </div>
                                 <table class="table table-striped"   align="center">
+                                    <?php
+                                        if ($_POST['btnBuscar']) {
+                                            if ($_POST['txtBusqueda']!="") {
+                                                $bus = new Detalle();
+
+                                                switch ($_POST['exampleRadios']) {
+                                                   case '1':{
+                                                           $res=$bus->Busqueda($_POST['txtBusqueda'],"01");
+                                                           mostrarRegistros($res);    
+                                                            
+                                                            }; break;
+                                                   case '2': 
+                                                          {
+                                                            $res=$bus->Busqueda($_POST['txtBusqueda'],"02");
+                                                           mostrarRegistros($res);    
+                                                            }; break;
+                                                    default :
+                                                        {
+                                                            $res=$bus->Busqueda($_POST['txtBusqueda'],"");
+                                                           mostrarRegistros($res);
+                                                        }
+                                                   }
+                                                
+                                            }
+                                            else
+                                                header("location: index.php");
+                                        }
+                                        else
+                                        {
+                                            $ul = new Detalle();
+                                            $datos=$ul->UltimosCinco();
+                                            mostrarRegistros($datos);
+                                        }
+
+                                        function mostrarRegistros($dato)
+                                        {
+                                            while ($fila=mysqli_fetch_object($dato))    
+                                            {
+  
+                                    ?>
                                     <tr>
-                                        <td><img src="assets/img/file.png" class="" alt="Rounded Image" height="90"></td>
+                                        <td>
+                                            <img src="assets/img/file.png" class="" alt="Rounded Image" height="90">
+                                        </td>
                                         <td>
                                             <b><label>TITULO: </label></b>  
-                                            <label>Titulo del Archivo a Subir</label><br> 
-                                            <label>skdjflksdjhjklglkjdsa lksdjfgb lskajs adlksjadg lksad j kslajdhglaksjd slkdj gsaldk g kjsaghlkasj k slaks jash  aslkj aslk jgsdlk saldgj asglkj sa</label><br>
+                                            <label><?php echo "$fila->titulo";?></label><br> 
+                                            <label><?php echo "$fila->descripcion";?></label><br>
                                             <b><label>TIPO: </label></b>    
                                             <label> PDF </label> ***********
                                             <b><label>Tamaño: </label></b>    
-                                            <label>325 KB</label><br>
+                                            <label><?php $tamax=$fila->size; $t=intval($tamax/1024); echo "$t KB";?></label><br>
                                         </td>
  
                                         <td align="right">
                                             <?php
-                                            echo "<a href='upload.php?pelim=$k&x_ruta=$dest' class='btn btn-info btn-default' > Vista Previa</a>";
+                                            echo "<a href='vista.php?file=$fila->nombre_ar' class='btn btn-info btn-default' > Vista Previa</a>";
                                             echo "<br>";
-                                            echo "<a href='upload.php?pelim=$k&x_ruta=$dest' class='btn btn-default btn-default' > Descargar </a>";
+                                            if (isset($_SESSION['s_reg'])) {
+                                              echo "<a href='download.php?arc=$fila->id_archivo' class='btn btn-default btn-default' > Descargar </a>";  
+                                            }
                                             ?>
                                         </td>
-
                                     </tr>
+                                    <?php
+                                            }
+                                        } 
+                                    
+                                    ?>
                                 </table>
                             </div>
                     </div>
