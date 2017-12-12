@@ -11,47 +11,56 @@ class Detalle extends Conexion
 	
 
 	//construtor
-	public function DetalleVenta()
+	public function Detalle()
 	{   parent::Conexion();
 		$this->id_upload=0;
 		$this->id_documento=0;
 		$this->titulo="";		
 		$this->descripcion="";
-		$this->tipo="";
+		$this->tipo=0;
 	}
 	//propiedades de acceso
-	public function setIdUpload($valor){
+	public function setIdUpload($valor)
+	{
 		$this->id_upload=$valor;
 	}
 	public function getIdUpload(){
 		return $this->id_upload;
 	}
 
-	public function setIdDocumento($valor){
+	public function setIdDocumento($valor)
+	{
 		$this->id_documento=$valor;
 	}
-	public function getIdDocumento()	{
+	public function getIdDocumento()	
+	{
 		return $this->id_documento;
 	}
 
-    public function setDescripcion($valor){
+    public function setDescripcion($valor)
+    {
 		$this->descripcion=$valor;
 	}
 	
-	public function getDescripcion(){
+	public function getDescripcion()
+	{
 		return $this->descripcion;
 	}
 
-	public function setTitulo($valor){
+	public function setTitulo($valor)
+	{
 		$this->titulo=$valor;
 	}
-	public function getTitulo(){
+	public function getTitulo()
+	{
 		return $this->titulo;
 	}
-	public function setTipo($valor){
+	public function setTipo($valor)
+	{
 		$this->tipo=$valor;
 	}
-	public function getTipo(){
+	public function getTipo()
+	{
 		return $this->tipo;
 	}
 
@@ -64,16 +73,18 @@ class Detalle extends Conexion
 			return false;	
 	}
 	
-	public function modificar(){
-	$sql="update detalle_venta set preciov=$this->preciov , cantidad=$this->cantidad where id_upload=$this->id_upload and id_producto=$this->id_producto";		
-		if(parent::ejecutar($sql))
+	public function Modificar()
+	{
+	$des="update detalle_up set titulo='$this->titulo', descripcion='$this->descripcion', id_tip_pk='$this->tipo' where id_arc_pk='$this->id_documento' and id_up_pk='$this->id_upload'";
+		//echo $des;
+		if(parent::ejecutar($des))
 			return true;
 		else
-			return false;	
+			return false;
 	}
 	
-	public function eliminar()	{
-		$sql="delete from detalle_venta where id_upload=$this->id_upload and id_producto=$this->id_producto";
+	public function Eliminar()	{
+		$sql="DELETE from detalle_up where id_up_pk='$this->id_upload' and id_arc_pk='$this->id_documento'";
 		
 		if(parent::ejecutar($sql))
 			return true;
@@ -81,13 +92,6 @@ class Detalle extends Conexion
 			return false;	
 	}
 	
-	public function eliminardetalle(){
-		$sql="delete from detalle_venta where id_upload=$this->id_upload";		
-		if(parent::ejecutar($sql))
-			return true;
-		else
-			return false;
-	}
 	
 	public function buscar($criterio) {
 	$sql="select * from detalle_up where id_arc_pk=$criterio";

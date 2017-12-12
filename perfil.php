@@ -12,6 +12,8 @@ else{
 
 include_once('clsDetalle.php');
 include_once('clsTipo.php');
+include_once('clsDocumento.php');
+include_once('clsFail.php');
 
 if (isset($_GET['x_tittle'])) {
     echo "<script type='text/javascript'>window.location='#ver';</script>";
@@ -127,6 +129,10 @@ if (isset($_GET['x_tittle'])) {
                                             </div>
                                             <form action="perfil.php" method="POST">
                                                 <div class="form-group has-success">
+                                                    <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="TITULO" name="txt_up" value="<?php if($_GET['x_up']){echo $_GET['x_up'];}?>">
+
+                                                    <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="TITULO" name="txt_doc" value="<?php if($_GET['x_doc']){echo $_GET['x_doc'];}?>">
+
                                                     <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="TITULO" name="txtTitulo" value="<?php if($_GET['x_tittle']){echo $_GET['x_tittle'];}?>">
                                                 </div>
                                                 <div class="form-group has-success">
@@ -151,7 +157,7 @@ if (isset($_GET['x_tittle'])) {
 
                                                 </div>
                                                 <div class="form-group has-success">
-                                                    <textarea class="form-control" rows="4" placeholder="Descricion del documento"><?php if($_GET['x_desc']){echo $_GET['x_desc'];}?></textarea>
+                                                    <textarea class="form-control" rows="4" placeholder="Descricion del documento" name="txtDesc"><?php if($_GET['x_desc']){echo $_GET['x_desc'];}?></textarea>
                                                 </div><br/>
                                                 <div class="form-group">
                                                     <input type=submit class="btn btn-outline-warning btn-round" value="Modificar" name="botones">
@@ -185,7 +191,7 @@ if (isset($_GET['x_tittle'])) {
                                                             echo "<tr>";
                                                                 echo "<td>$fila->titulo</td>";
                                                                 echo "<td>$fila->fecha_up</td>";
-                                                                echo "<td><a href='perfil.php?x_tittle=$fila->titulo&x_desc=$fila->descripcion&x_tipo=$fila->id_tip_pk'><i class='nc-icon nc-send' aria-hidden='true'></i></a></td>";
+                                                                echo "<td><a href='perfil.php?x_tittle=$fila->titulo&x_desc=$fila->descripcion&x_tipo=$fila->id_tip_pk&x_up=$fila->id_up_pk&x_doc=$fila->id_arc_pk'><i class='nc-icon nc-send' aria-hidden='true'></i></a></td>";
 
                                                             echo "<tr>";
                                                         }
@@ -203,8 +209,77 @@ if (isset($_GET['x_tittle'])) {
             </div>
         </div>
 
-        <?php
+    <?php
         include_once('html_footer.php');
+    ?>
+
+    <?php
+    function Modificar(){
+        if ($_POST['txtTitulo'] && $_POST['txtDesc']) {
+            $nel = new Fail();
+            $nel->setIdUpload($_POST['txt_up']);
+            $nel->setIdDocumento($_POST['txt_doc']);
+            $nel->setTitulo($_POST['txtTitulo']);
+            $nel->setTipo($_POST['cboTipo']);
+            $nel->setDescripcion($_POST['txtDesc']);
+
+            echo "<br>".$nel->getIdUpload();
+            echo "<br>".$nel->getIdDocumento();
+            echo "<br>".$nel->getTitulo();
+            echo "<br>".$nel->getTipo();
+            echo "<br>".$nel->getDescripcion();
+
+           if ($nel->Modificar())
+           {
+                echo "<script type='text/javascript'>alert('MODIFICADO CORRECTAMENTE');</script>";
+            }
+            else
+                echo "<script type='text/javascript'>alert('ERROR, NO SE MODIFICO ');</script>";
+        }
+        else
+            echo "<script type='text/javascript'>alert('INGRESE TODOS LOS CAMPOS');</script>";
+    }
+
+     function Eliminar(){
+
+        if ($_POST['txt_up']&&$_POST['txt_doc']) {
+            $new = new Detalle();
+            $new->setIdUpload($_POST['txt_up']);
+            $new->setIdDocumento($_POST['txt_doc']);
+
+           if ($new->Eliminar()) {
+                echo "<script type='text/javascript'>alert('ELIMINADO CORRECTAMENTE');</script>";
+            }
+            else
+                echo "<script type='text/javascript'>alert('ERROR, NO SE ELIMINO ');</script>";
+        }
+        else
+            echo "<script type='text/javascript'>alert('INGRESE TODOS LOS CAMPOS');</script>";
+    }
+
+
+
+
+    switch ($_POST['botones']) {
+        case 'Modificar':
+            Modificar();
+            break;
+        
+        case 'Eliminar':
+            Eliminar();
+            break;
+
+        case 'Nuevo Documento':
+            header("location: upload.php");
+
+            break;
+
+        case 'Limpiar':
+            echo "<script type='text/javascript'>window.location='#ver';</script>";
+            break;
+    }
+
+
     ?>
     </body>
 
