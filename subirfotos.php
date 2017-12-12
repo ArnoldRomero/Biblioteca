@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start();
 session_start();
 
@@ -10,7 +10,7 @@ else{
     header("location: index.php");
 }
 ?>
-<?
+<?php
 include_once('clsFotos.php');
 ?>
 <html>
@@ -76,7 +76,7 @@ include_once('clsFotos.php');
 
 </table></form></center>
 </div>
-<?
+<?php
 	if ($_POST["Agregar"])
 	{    
     if ($_FILES['archivoF']['name']!=null||$_FILES['archivoP']['name']!=null) 

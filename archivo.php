@@ -1,9 +1,9 @@
-<?
+<?php
 ob_start();
 include_once('clsCarro.php');
 session_start();
 ?>
-<?
+<?php
 include_once('clsTipo.php');
 ?>
 <html>
@@ -96,7 +96,7 @@ include_once('clsTipo.php');
 
 </table></form></center>
 </div>
-<?
+<?php
 	if ($_POST["Agregar"])
 	{
 		$nombre=$_FILES['archivo']['name'];

@@ -186,7 +186,7 @@ if (isset($_GET['x_tittle'])) {
                                                 </div>
                                                 <div class="form-group has-success">
 
-                                                    <?
+                                                    <?php
                                                          $obj=new Tipo();
                                                          $reg=$obj->Buscar();
                                                          
@@ -194,10 +194,10 @@ if (isset($_GET['x_tittle'])) {
                                                          while ($fila=mysqli_fetch_array($reg))
                                                          {
                                                           ?>
-                                                        <option <? if($_GET[ 'x_tipo']==$fila[ 'id_tip']) echo "selected";?>
+                                                        <option <?php if($_GET[ 'x_tipo']==$fila[ 'id_tip']) echo "selected";?>
                                                             value="
-                                                            <? echo $fila['id_tip']; ?>">
-                                                                <? 
+                                                            <?php echo $fila['id_tip']; ?>">
+                                                                <?php 
                                                           echo $fila['nombre_tipo'];  
                                                              echo "</option>";       
                                                           }

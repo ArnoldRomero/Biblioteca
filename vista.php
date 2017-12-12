@@ -99,10 +99,9 @@ include_once('clsDocumento.php');
             </div>
         </div>
         <?php
-        /**********PIE DE PAGINA***********/
-        include_once('html_footer.php');
-    ?>
-?>
+            /**********PIE DE PAGINA***********/
+            include_once('html_footer.php');
+        ?>
 </body>
 <!-- Core JS Files -->
 <script src="assets/js/jquery-3.2.1.js" type="text/javascript"></script>

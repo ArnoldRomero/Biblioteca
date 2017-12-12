@@ -1,27 +1,27 @@
 <?php
-ob_start();
-include_once('clsCarro.php');
-session_start();
+    ob_start();
+    include_once('clsCarro.php');
+    session_start();
 
-if (isset($_SESSION['s_admin'])) {
-    header("location: admin/index.php");
-}
-if (isset($_SESSION['s_user'])&& isset($_SESSION['s_reg'])) {
-    $user_actual=$_SESSION['s_user'];
-    $registro_user=$_SESSION['s_reg'];
-}
-else
-    header("Location: index.php");
-
-?>
+    if (isset($_SESSION['s_admin'])) {
+        header("location: admin/index.php");
+    }
+    if (isset($_SESSION['s_user'])&& isset($_SESSION['s_reg'])) {
+        $user_actual=$_SESSION['s_user'];
+        $registro_user=$_SESSION['s_reg'];
+    }
+    else
+        header("Location: index.php");
 
 ?>
+
 <?php
-include_once('clsUpload.php');
-include_once('clsDetalle.php');
-include_once('clsUsuario.php');
-include_once('clsDocumento.php');
+    include_once('clsUpload.php');
+    include_once('clsDetalle.php');
+    include_once('clsUsuario.php');
+    include_once('clsDocumento.php');
 ?>
+
 <?php
 if(!isset($_SESSION["carrito"]))
     {

@@ -1,4 +1,4 @@
- <?
+ <?php
     class Carrito
     {
        private $titulo = array();
