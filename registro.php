@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,6 +28,7 @@
 <body>
 <?php
     include_once('clsUsuario.php');
+    include_once('clsFotos.php');
 ?>
     <nav class="navbar navbar-expand-md fixed-top navbar-transparent" color-on-scroll="50">
         <div class="container">
@@ -105,6 +107,7 @@
 <?php
     if (isset($_POST['btnRegistrar']) && $_POST['txt_pas1']==$_POST['txt_pas2']) {
         $new=new Usuario();
+        
         $new->setNroReg($_POST['txt_reg']);
         $new->setNombres($_POST['txt_nom']);
         $new->setPaterno($_POST['txt_pat']);
@@ -112,22 +115,14 @@
         $new->setSexo($_POST['cbo_sexo']);
         $new->setCorreo($_POST['txt_ema']);
         $new->setPass($_POST['txt_pas1']);
-/*
-        echo "<br>".$new->getNroReg();
-        echo "<br>".$new->getNombres();
-        echo "<br>".$new->getPaterno();
-        echo "<br>".$new->getMaterno();
-        echo "<br>".$new->getSexo();
-        echo "<br>".$new->getCorreo();
-        echo "<br>".$new->getPass();
-*/
-
-
+        
         if ($new->GuardarNuevo()) {
-            echo "<script type='text/javascript'>alert('Registro Exitoso!');</script>";
+            echo "<script type='text/javascript'>alert('Registro Exitoso! ');</script>";
         }
         else
             echo "<script type='text/javascript'>alert('Error, ingrese correctamente todos los campos!!');</script>";
+        $asd=new Foto();
+        $asd->Guardar($_POST['txt_reg']);
     }
 ?>
 

@@ -23,7 +23,7 @@ class Foto extends Conexion
 	}
 
 	public function Guardar($usuario){
-		$sql="insert into fotos (id) value ('$usuario')";
+		$sql="insert into fotos (id) values ('$usuario')";
 		parent::ejecutar($sql);
 	}
 
@@ -48,5 +48,7 @@ class Foto extends Conexion
 		$fila=mysqli_fetch_object($dato);
 		return $fila->portada;
 	}
+
+	
 }
 ?>

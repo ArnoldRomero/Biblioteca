@@ -13,8 +13,8 @@ else{
 include_once('clsDetalle.php');
 include_once('clsTipo.php');
 include_once('clsDocumento.php');
-include_once('clsFail.php');
 include_once('clsFotos.php');
+include_once('ClsUsuario.php');
 
 if (isset($_GET['x_tittle'])) {
     echo "<script type='text/javascript'>window.location='#ver';</script>";
@@ -96,6 +96,13 @@ if (isset($_GET['x_tittle'])) {
             $portada=$img->ObtenerPortada($cod_user);
             $foto=$img->ObtenerFoto($cod_user);
         ?>
+
+        <?php
+
+        $d = new Usuario();
+        $d->setNroReg($cod_user);
+
+        ?>
         <div class="wrapper">
 
             <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('assets/img/portada/<?php if($portada==null){echo "default.jpg";} else echo $portada;?>');">
@@ -118,12 +125,32 @@ if (isset($_GET['x_tittle'])) {
                         <div class="name">
                             <h4 class="title">
                                 <?php echo $user_actual;?><br /></h4>
-                            <h6 class="description">Music Producer</h6>
+                            <h6 class="description">E-Mail</h6>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 ml-auto mr-auto text-center">
-                            <p>An artist of considerable range, Jane Faker — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. </p>
+                            <p><?php echo $d->Info()->correo;?> </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 ml-auto mr-auto text-center">
+                            <p><?php echo $d->Info()->fecha_nacimiento;?> </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 ml-auto mr-auto text-center">
+                            <p><?php echo $d->Info()->direccion;?> </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 ml-auto mr-auto text-center">
+                            <p><?php echo $d->Info()->telefono;?> </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 ml-auto mr-auto text-center">
+                            <p><?php echo $d->Info()->sexo;?> </p>
                             <br />
                             <btn class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn>
                         </div>
@@ -238,18 +265,18 @@ if (isset($_GET['x_tittle'])) {
     <?php
     function Modificar(){
         if ($_POST['txtTitulo'] && $_POST['txtDesc']) {
-            $nel = new Fail();
+            $nel = new Detalle();
             $nel->setIdUpload($_POST['txt_up']);
             $nel->setIdDocumento($_POST['txt_doc']);
             $nel->setTitulo($_POST['txtTitulo']);
             $nel->setTipo($_POST['cboTipo']);
             $nel->setDescripcion($_POST['txtDesc']);
 
-            echo "<br>".$nel->getIdUpload();
+          /*  echo "<br>".$nel->getIdUpload();
             echo "<br>".$nel->getIdDocumento();
             echo "<br>".$nel->getTitulo();
             echo "<br>".$nel->getTipo();
-            echo "<br>".$nel->getDescripcion();
+            echo "<br>".$nel->getDescripcion();*/
 
            if ($nel->Modificar())
            {

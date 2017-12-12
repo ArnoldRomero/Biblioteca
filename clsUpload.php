@@ -63,25 +63,10 @@ class Upload extends Conexion{
 		else
 			return false;	
 	}
-	
-	public function modificar(){
-	$sql="update venta set fecha='$this->fecha' where id_venta=$this->id_venta";		
-		if(parent::ejecutar($sql))
-			return true;
-		else
-			return false;	
-	}
-	
-	public function modificar2() {
-	$sql="update venta set id_cliente='$this->id_cliente',fecha='$this->fecha' where id_venta=$this->id_venta";		
-		if(parent::ejecutar($sql))
-			return true;
-		else
-			return false;	
-	}
+
 	
 	public function eliminar(){
-		$sql="delete from venta where id_venta=$this->id_venta";
+		$sql="delete from upload where id_up='$this->id_up'";
 	
 		if(parent::ejecutar($sql))
 			return true;
@@ -89,14 +74,14 @@ class Upload extends Conexion{
 			return false;	
 	}
 	
-	public function buscarCliente($criterio){
-		$sql="select *from cliente where nombre like '%$criterio%'";
+	public function BuscarxUsuario($criterio){
+		$sql="select * from upload,usuario where usuario.nro_reg=upload.id_usu_pk and nro_reg='$criterio'";
 		return parent::ejecutar($sql);
 	}	
 	
-	public function buscarVenta($criterio){
-	 $sql="select c.id_cliente, c.nombre, c.apellidos, v.id_venta, v.fecha from cliente c, venta v where c.id_cliente=v.id_cliente and (c.nombre like '%$criterio%' or c.apellidos like '%$criterio%')";
-		return parent::ejecutar($sql);	
+	public function BuscarxFecha($criterio){
+		$sql="select * from upload,usuario where usuario.nro_reg=upload.id_usu_pk and fecha_up='$criterio'";
+		return parent::ejecutar($sql);
 	}					
 }    
 ?>

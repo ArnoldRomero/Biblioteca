@@ -22,12 +22,10 @@ else{
 
 	<h1>Prueba UNO</h1>
 	<?php
-	 include_once('clsFotos.php');
-	$new =new Foto();
-	echo "0213164442";
-	echo "<br>".$_SESSION['s_reg'];
-	echo $new->ObtenerFoto('0213164442');
-	echo $new->ObtenerPortada($_SESSION['s_reg']);
+	 include_once('clsUsuario.php');
+	$new =new Usuario();
+	$new->setNroReg('0213164442');
+	echo $new->Info()->paterno;
 	
 
 	

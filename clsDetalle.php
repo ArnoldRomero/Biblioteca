@@ -75,10 +75,11 @@ class Detalle extends Conexion
 	
 	public function Modificar()
 	{
-	$des="update detalle_up set titulo='$this->titulo', descripcion='$this->descripcion', id_tip_pk='$this->tipo' where id_arc_pk='$this->id_documento' and id_up_pk='$this->id_upload'";
-		//echo $des;
-		if(parent::ejecutar($des))
+		$sqli="update detalle_up set titulo='$this->titulo', descripcion='$this->descripcion', id_tip_pk='$this->tipo' where id_arc_pk='$this->id_documento' and id_up_pk='$this->id_upload';";
+		echo "<br><br>".$sqli;
+		if(parent::ejecutar($sqli)){
 			return true;
+		}
 		else
 			return false;
 	}

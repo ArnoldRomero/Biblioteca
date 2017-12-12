@@ -124,10 +124,42 @@ class Usuario extends Conexion
 			else
 				return false;
 		}
-		public function buscar()
+
+		public function Modificar(){
+			$sql="UPDATE usuario set nombres='$this->nombres', paterno='$this->paterno', materno='$this->materno', sexo='$this->sexo', fecha_nacimiento='$this->fecha_nac', telefono='$this->telefono', correo='$this->correo', direccion='$this->direccion', pass='$this->pass=' where nro_reg='$this->nro_registro';";		
+			if(parent::ejecutar($sql))
+				return true;
+			else
+				return false;	
+		}
+
+		public function Buscar()
 		{
-			$sql="SELECT * from categoria";
+			$sql="SELECT * from usuario";
 			return parent::Ejecutar($sql);			
+		}
+
+		public function BuscarxId()
+		{
+			$sql="SELECT * from usuario where nro_reg='$this->nro_registro';";
+			return parent::Ejecutar($sql);			
+		}
+		
+		
+		public function Info(){
+		$sql="SELECT * from usuario where nro_reg='$this->nro_registro' ";
+		$dato=parent::ejecutar($sql);
+		return mysqli_fetch_object($dato);
+		}
+
+		public function Eliminar()
+		{
+			$sql="DELETE from usuario where nro_reg='$this->nro_registro'";
+			
+			if(parent::ejecutar($sql))
+				return true;
+			else
+				return false;	
 		}
 
 

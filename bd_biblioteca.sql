@@ -5,7 +5,7 @@ create table usuario(
     paterno varchar (50) not null,
     materno varchar (50) not null,
     sexo varchar (10) not null,
-    fecha_nacimineto date,
+    fecha_nacimiento date,
     telefono int,
     correo varchar(50),
     direccion varchar (100)
