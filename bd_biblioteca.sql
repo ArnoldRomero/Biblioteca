@@ -68,3 +68,11 @@ create table administrador(
     user varchar(20) not null primary key,
     pass varchar(20) not null
 );
+
+create table fotos(
+id int (10) ZEROFILL NOT null,
+foto varchar(80),
+portada varchar(80),
+foreign key (id) references usuario(nro_reg),
+primary key (id)
+);

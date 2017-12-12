@@ -14,6 +14,7 @@ include_once('clsDetalle.php');
 include_once('clsTipo.php');
 include_once('clsDocumento.php');
 include_once('clsFail.php');
+include_once('clsFotos.php');
 
 if (isset($_GET['x_tittle'])) {
     echo "<script type='text/javascript'>window.location='#ver';</script>";
@@ -47,6 +48,13 @@ if (isset($_GET['x_tittle'])) {
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
         <link href="assets/css/nucleo-icons.css" rel="stylesheet">
+        <script> 
+        var miPopup 
+        function abreSubirFotos(){ 
+            miPopup = window.open("subirfotos.php","miwin","width=600,height=400,scrollbars=yes")
+             miPopup.focus() 
+        }   
+        </script> 
 
     </head>
 
@@ -83,15 +91,29 @@ if (isset($_GET['x_tittle'])) {
             </div>
         </nav>
         <br><br><br>
+        <?php
+            $img=new Foto();
+            $portada=$img->ObtenerPortada($cod_user);
+            $foto=$img->ObtenerFoto($cod_user);
+        ?>
         <div class="wrapper">
-            <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('assets/img/fabio-mangione.jpg');">
+
+            <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('assets/img/portada/<?php if($portada==null){echo "default.jpg";} else echo $portada;?>');">
                 <div class="filter"></div>
             </div>
             <div class="section profile-content">
                 <div class="container">
                     <div class="owner">
                         <div class="avatar">
-                            <img src="assets/img/faces/joe-gardner-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                            <?php 
+                                if ($foto==null) {
+                                    echo "<a href='' onClick='abreSubirFotos()'><img src='assets/img/faces/default.jpg' alt='Circle Image' class='img-circle img-no-padding img-responsive'></a>";
+                                }
+                                else
+                                {
+                                    echo "<a href='' onClick='abreSubirFotos()'><img src='assets/img/faces/".$foto."' alt='Circle Image' class='img-circle img-no-padding img-responsive'></a>";
+                                }
+                            ?>
                         </div>
                         <div class="name">
                             <h4 class="title">
@@ -129,9 +151,9 @@ if (isset($_GET['x_tittle'])) {
                                             </div>
                                             <form action="perfil.php" method="POST">
                                                 <div class="form-group has-success">
-                                                    <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="TITULO" name="txt_up" value="<?php if($_GET['x_up']){echo $_GET['x_up'];}?>">
+                                                    <input type="hidden" class="form-control form-control-success" id="inputSuccess1" placeholder="TITULO" name="txt_up" value="<?php if($_GET['x_up']){echo $_GET['x_up'];}?>">
 
-                                                    <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="TITULO" name="txt_doc" value="<?php if($_GET['x_doc']){echo $_GET['x_doc'];}?>">
+                                                    <input type="hidden" class="form-control form-control-success" id="inputSuccess1" placeholder="TITULO" name="txt_doc" value="<?php if($_GET['x_doc']){echo $_GET['x_doc'];}?>">
 
                                                     <input type="text" class="form-control form-control-success" id="inputSuccess1" placeholder="TITULO" name="txtTitulo" value="<?php if($_GET['x_tittle']){echo $_GET['x_tittle'];}?>">
                                                 </div>

@@ -7,6 +7,7 @@ class Foto extends Conexion
 	private $portada;
 
 	public function Foto(){
+		parent::Conexion();
 		$this->cod_user=0;
 		$this->foto="";
 		$this->portada="";
@@ -22,7 +23,30 @@ class Foto extends Conexion
 	}
 
 	public function Guardar($usuario){
-		$sql="insert into fotos (id) value ('$usuario')"
+		$sql="insert into fotos (id) value ('$usuario')";
+		parent::ejecutar($sql);
+	}
+
+	public function InsertarF($user,$foto){
+		$sql="update fotos set foto='$foto' where id='$user'";
+		parent::ejecutar($sql);
+	}
+	public function InsertarP($user,$portada){
+		$sql="update fotos set portada='$portada' where id='$user'";
+		parent::ejecutar($sql);
+	}
+
+	public function ObtenerFoto($user){	
+		$sql="SELECT foto from fotos where id='$user' ";
+		$dato=parent::ejecutar($sql);
+		$fila=mysqli_fetch_object($dato);
+		return $fila->foto;
+	}
+	public function ObtenerPortada($user){
+		$sql="SELECT portada from fotos where id='$user' ";
+		$dato=parent::ejecutar($sql);
+		$fila=mysqli_fetch_object($dato);
+		return $fila->portada;
 	}
 }
 ?>
